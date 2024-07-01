@@ -1,0 +1,44 @@
+--NextPart_016-772-8798
+Content-Type: text/xml; charset="ks_c_5601-1987"
+Content-ID: </tnn-200102/mm7-submit>
+Content-Transfer-Encoding: 8bit
+<?xml version="1.0" encoding="euc-kr"?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope">
+    <env:Header>
+        <mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2" env:mustUnderstand="1">
+            23088
+        </mm7:TransactionID>
+    </env:Header>
+    <env:Body>
+    <mm7:SubmitReq xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2">
+        <ServiceType>MMSMT1</ServiceType>
+        <MM7Version>1.6</MM7Version>
+        <SenderIdentification>
+            <VASPID>testhub</VASPID>
+            <VASID>testhub</VASID>
+            <CPID>testhub_01_001</CPID>
+            <SenderAddress>0168703782</SenderAddress>
+            <CallBack>0900000001</CallBack>
+        </SenderIdentification>
+        <Recipients>
+            <To>
+                <Number>0161120867</Number>
+            </To>
+        </Recipients>
+        <MessageClass>GENERAL</MessageClass>
+        <TimeStamp>2003-09-24T14:11:28</TimeStamp>
+        <Subject>LTS TEST</Subject>
+        <DeliveryReport>TRUE</DeliveryReport>
+        <ReadReply>TRUE</ReadReply>
+        <ResellerCode>123456789</ResellerCode>
+    </mm7:SubmitReq>
+</env:Body>
+</env:Envelope>
+
+--NextPart_016-772-8798
+Content-Type: text/html; charset="euc-kr"
+Content-ID: <text/html>
+Content-Transfer-Encoding: 8bit
+<HTML><HEAD></HEAD><BODY>안녕하세요. ~~ 반갑습니다. </BODY></HTML>
+
+--NextPart_016-772-8798—

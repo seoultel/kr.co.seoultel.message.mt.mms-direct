@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+    <env:Header>
+        <mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2" env:mustUnderstand="1" />
+    </env:Header>
+    <env:Body>
+        <mm7:RSErrorRsp xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2">
+            <MM7Version>1.0</MM7Version>
+            <Status>
+                <StatusCode>2150</StatusCode>
+                <StatusText>MIME_ERROR</StatusText>
+            </Status>
+        </mm7:RSErrorRsp>
+    </env:Body>
+</env:Envelope>

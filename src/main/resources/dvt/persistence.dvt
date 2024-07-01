@@ -1,0 +1,198 @@
+[
+  {
+    "createdTime": 1719793860714,
+    "umsMsgId": "14064492858799650361",
+    "srcMsgId": "214322605148987513",
+    "dstMsgId": "202407010931009207474285",
+    "cmpMsgId": "7720309974354535197",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1719793861100,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(14064492858799650361)"
+      }
+    ],
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240701093100",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240701093101",
+      "pfmRcvDttm": "20240701093101",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1719793283229,
+    "umsMsgId": "14810958075178146146",
+    "srcMsgId": "760077345421813984",
+    "dstMsgId": "202407010921237406525047",
+    "cmpMsgId": "989871016515173481",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1719793283432,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(14810958075178146146)"
+      }
+    ],
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240701092123",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240701092123",
+      "pfmRcvDttm": "20240701092123",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1718878915936,
+    "umsMsgId": "13000062126056116659",
+    "srcMsgId": "23062889027168981375",
+    "dstMsgId": "202406261506126075832135",
+    "cmpMsgId": "438426287117953455",
+    "groupCode": "A000003",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "content": {
+      "subject": "엘로헬로비전 LMS/MMS 메세지 전송 가능합니다.",
+      "message": "엘로헬로비전 LMS/MMS 메세지 전송 가능합니다.!!!",
+      "mediaFiles": [],
+      "originCode": "301150163",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1718878915971,
+        "processorName": "L_M_SMT01",
+        "action": "SUBMIT(13000062126056116659)"
+      },
+      {
+        "processedTime": 1718878915989,
+        "processorName": "L_M_SMT01",
+        "action": "SUBMIT_ACK(13000062126056116659)"
+      },
+      {
+        "processedTime": 1718878916271,
+        "processorName": "L_M_SMT01",
+        "action": "REPORT(13000062126056116659)"
+      },
+      {
+        "processedTime": 1719381975041,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(13000062126056116659)"
+      }
+    ],
+    "deliveryProcess": "L_M_SMT01",
+    "deliveryState": 4,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Failed to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240620192155",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240626150615",
+      "pfmRcvDttm": "20240626150615",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1719797023087,
+    "umsMsgId": "997618810446216791",
+    "srcMsgId": "0311510806304386827",
+    "dstMsgId": "202407011023437747983119",
+    "cmpMsgId": "64575786495526891280",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1719797023482,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(997618810446216791)"
+      }
+    ],
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240701102343",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240701102343",
+      "pfmRcvDttm": "20240701102343",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  }
+]

@@ -1,0 +1,104 @@
+server:
+  port: 8090
+  shutdown: graceful
+
+spring:
+  application:
+    name: D_M_LGHV01
+
+  pid:
+    file: ./application.pid
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  data:
+    redis:
+      lettuce:
+        pool:
+          max-active: 2
+          max-idle: 2
+          min-idle: 2
+
+      cluster:
+        nodes: 127.0.0.1:6379
+        password:
+
+file-server:
+  token: HermesSteps
+  image-request-uri: https://dev-storage.std-ums.com:19200/v1/storage/download
+  image-download-path: /Users/simjeonghun/mms-images
+
+heart-beat:
+  host: localhost
+  port: 8348
+  reconnect-time: 5
+  expire-time: 30
+
+
+sender:
+  name: D_M_KTF01
+  group: Direct
+  telecom: ktf                               # lowerCase
+  is-dummy: off
+
+
+
+  http:
+    bpid:
+    vas-id: "arreo_vasId"
+    vasp-id: "arreomms"
+    endpoint:
+      ip: 211.246.105.50
+      port: 15000
+
+    cpids:
+      - cpid: "arreomms_02_001"
+        tps: 5
+      - cpid: "arreomms_02_002"
+        tps: 5
+      - cpid: "arreomms_02_003"
+        tps: 5
+      - cpid: "arreomms_02_004"
+        tps: 5
+
+
+
+
+
+  data-vault:
+    paths:
+      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/persistence.dvt
+      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/messageHistory.dvt
+      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/republish.dvt
+      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/report.dvt
+
+
+mt:
+  exchange: xsend.mms                                  # write to mt exchange-name
+  queue: mt.sender.SK01                                     # write to mr exchange-name
+
+mr:
+  exchange: xrpt                                  # write to mt exchange-name
+  queue: mr.mms.report                                   # write to mr exchange-name
+
+rabbitmq:
+  primary-cluster: off                    # if rabbit is clustered write on, else off
+  primary-host: localhost
+  primary-port: 5672
+  primary-username: arreo
+  primary-password: 1234
+  primary-virtual-host: /mcmp
+
+  secondary-cluster: off              # if rabbit is clustered write on, else off
+  secondary-host: localhost
+  secondary-port: 5672
+  secondary-username: arreo
+  secondary-password: 1234
+  secondary-virtual-host: /mcmp
+
+
+
+logging:
+  charset:
+    console: EUC-KR
