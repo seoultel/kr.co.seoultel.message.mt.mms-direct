@@ -19,7 +19,7 @@ import kr.co.seoultel.message.mt.mms.direct.Application;
 import kr.co.seoultel.message.mt.mms.direct.config.RabbitMQConfig;
 import kr.co.seoultel.message.mt.mms.direct.config.SenderConfig;
 import lombok.NonNull;
-import lombok.Setter;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpIOException;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
