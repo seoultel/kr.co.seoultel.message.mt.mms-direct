@@ -1,5 +1,5 @@
 server:
-  port: 14001
+  port: 10000
   shutdown: graceful
 
 spring:
@@ -37,46 +37,36 @@ heart-beat:
 
 
 sender:
-  name: D_M_KT01
+  name: D_M_SK01
   group: Direct
   telecom: skt                               # lowerCase
   is-dummy: on
 
   http:
     bpid: null
-    vas-id: "arreo_vasId"
-    vasp-id: "arreomms"
+    vas-id: "21"
+    vasp-id: "1"
 
     cpids:
-      - cpid: "arreomms_02_001"
+      - cpid: "1528801080"
         tps: 5
-      - cpid: "arreomms_02_002"
-        tps: 5
-      - cpid: "arreomms_02_003"
-        tps: 5
-      - cpid: "arreomms_02_004"
-        tps: 5
-
 
     endpoint:
       ip: 127.0.0.1
-      port: 15000
-  #    endpoint:
-  #      ip: 211.246.105.50
-  #      port: 15000
+      port: 10001
 
 
   data-vault:
     paths:
-      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/persistence.dvt
-      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/messageHistory.dvt
-      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/republish.dvt
-      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/report.dvt
+      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/persistence.dvt
+      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/messageHistory.dvt
+      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/republish.dvt
+      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/report.dvt
 
 
 mt:
   exchange: xsend.mms                                  # write to mt exchange-name
-  queue: mt.sender.sk01                                     # write to mr exchange-name
+  queue: mt.sender.D_M_SK01                                     # write to mr exchange-name
 
 mr:
   exchange: xrpt                                  # write to mt exchange-name
@@ -101,4 +91,4 @@ rabbitmq:
 
 logging:
   charset:
-    console: EUC-KR
+    console: UTF-8

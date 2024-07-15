@@ -1,0 +1,1050 @@
+[
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "1000",
+  "convertResult": "99",
+  "resultMessage" : "SUBMIT_SUCCESS"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2000",
+  "convertResult": "3020",
+  "resultMessage" : "CLIENT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2002",
+  "convertResult": "2030",
+  "resultMessage" : "ADDRESS_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2003",
+  "convertResult": "3020",
+  "resultMessage" : "DELIVERY_SUCCESS"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2005",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2007",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_FORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2100",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_FORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2101",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2102",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_PARSING_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2103",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_NOTSUPPORTED_METHOD"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2104",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_VERSION_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2105",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_MESSAGECLASS_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2106",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_SENDINFO_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2107",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_RCPTINFO_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2108",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_HUBID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2109",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_VASID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2110",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_CALLBACK_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2111",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_SENDER_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2112",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_TIMESTAMP_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2113",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_SUBJECT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2114",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_TRANSACTIONID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2115",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_MESSAGEID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2116",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_SERVICETYPE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2150",
+  "convertResult": "3020",
+  "resultMessage" : "MIME_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2151",
+  "convertResult": "3020",
+  "resultMessage" : "BOUNDARY_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2152",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENTTYPE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2154",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_EMPTY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2155",
+  "convertResult": "3020",
+  "resultMessage" : "ENCODING_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2160",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_NOTSUPPORTED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2161",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_CONVERSION_NOTSUPPORTED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2162",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "2163",
+  "convertResult": "2010",
+  "resultMessage" : "TRANID_DUPLICATE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "3000",
+  "convertResult": "3020",
+  "resultMessage" : "SERVER_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4000",
+  "convertResult": "3020",
+  "resultMessage" : "SERVICE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4001",
+  "convertResult": "3020",
+  "resultMessage" : "SERVICE_DENIED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4100",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_ATUH_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4101",
+  "convertResult": "3100",
+  "resultMessage" : "HUB_NOTFOUND"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4102",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_BLOCK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4103",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_EXPIRED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4104",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_IP_INVALID"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4105",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_CALLBACK_INVALID"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4201",
+  "convertResult": "3020",
+  "resultMessage" : "RCPTCNT_OVER"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4202",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_OVER_INTRAFFIC"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4203",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_OVER_MESSAGESIZE"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4400",
+  "convertResult": "2040",
+  "resultMessage" : "SPAM_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4401",
+  "convertResult": "2040",
+  "resultMessage" : "SPAM_SUBJECT"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4402",
+  "convertResult": "2040",
+  "resultMessage" : "SPAM_FILENAME"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "4403",
+  "convertResult": "2040",
+  "resultMessage" : "SPAM_SUBCP"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "9999",
+  "convertResult": "3110",
+  "resultMessage" : "UNKNOWN_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "1000",
+  "convertResult": "-100",
+  "resultMessage" : "SUCCESS"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "1001",
+  "convertResult": "-100",
+  "resultMessage" : "SUCCESS(SPAM)"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "1002",
+  "convertResult": "-100",
+  "resultMessage" : "SUCCESS"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2000",
+  "convertResult": "3020",
+  "resultMessage" : "CLIENT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2002",
+  "convertResult": "3020",
+  "resultMessage" : "ADDRESS_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2003",
+  "convertResult": "3020",
+  "resultMessage" : "DELIVERY_SUCCESS"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2005",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2007",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_FORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2100",
+  "convertResult": "3020",
+  "resultMessage" : "MESSAGE_FORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2101",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2102",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_PARSING_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2103",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_NOTSUPPORTED_METHOD"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2104",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_VERSION_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2105",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_MESSAGECLASS_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2106",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_SENDINFO_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2107",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_RCPTINFO_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2108",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_HUBID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2109",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_VASID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2110",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_CALLBACK_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2111",
+  "convertResult": "2030",
+  "resultMessage" : "SOAP_SENDER_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2112",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_TIMESTAMP_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2113",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_SUBJECT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2114",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_TRANSACTIONID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2115",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_MESSAGEID_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2116",
+  "convertResult": "3020",
+  "resultMessage" : "SOAP_SERVICETYPE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2150",
+  "convertResult": "3020",
+  "resultMessage" : "MIME_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2151",
+  "convertResult": "3020",
+  "resultMessage" : "BOUNDARY_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2152",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENTTYPE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2154",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_EMPTY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2155",
+  "convertResult": "3020",
+  "resultMessage" : "ENCODING_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2160",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_NOTSUPPORTED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2161",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_CONVERSION_NOTSUPPORTED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2162",
+  "convertResult": "3020",
+  "resultMessage" : "CONTENT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "2163",
+  "convertResult": "2010",
+  "resultMessage" : "TRANID_DUPLICATE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "3000",
+  "convertResult": "3020",
+  "resultMessage" : "SERVER_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "3400",
+  "convertResult": "3100",
+  "resultMessage" : "LMSC_NETWORK_PROBLEM"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "3505",
+  "convertResult": "3020",
+  "resultMessage" : "LMSC_NO_HEADER"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4000",
+  "convertResult": "3020",
+  "resultMessage" : "SERVICE_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4001",
+  "convertResult": "3020",
+  "resultMessage" : "SERVICE_DENIED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4100",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_ATUH_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4101",
+  "convertResult": "3100",
+  "resultMessage" : "HUB_NOTFOUND"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4102",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_BLOCK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4103",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_EXPIRED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4104",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_IP_INVALID"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4105",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_CALLBACK_INVALID"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4200",
+  "convertResult": "3020",
+  "resultMessage" : "SERVICE_LIMIT"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4201",
+  "convertResult": "3020",
+  "resultMessage" : "RCPTCNT_OVER"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4202",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_OVER_INTRAFFIC"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4203",
+  "convertResult": "3020",
+  "resultMessage" : "HUB_OVER_MESSAGESIZE"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4300",
+  "convertResult": "3050",
+  "resultMessage" : "SUBS_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4301",
+  "convertResult": "3050",
+  "resultMessage" : "SUBS_INVALID"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4302",
+  "convertResult": "3050",
+  "resultMessage" : "SUBS_PORTED_SKT"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4303",
+  "convertResult": "3050",
+  "resultMessage" : "SUBS_PORTED_LGT"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4304",
+  "convertResult": "3050",
+  "resultMessage" : "SUBS_ADULTAUTH_FAIL"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4305",
+  "convertResult": "3060",
+  "resultMessage" : "SUBS_MMS_NOTSUPPORTED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4306",
+  "convertResult": "2010",
+  "resultMessage" : "SUBS_DUPLICATION"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4307",
+  "convertResult": "3080",
+  "resultMessage" : "SUBS_BLOCK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4400",
+  "convertResult": "2042",
+  "resultMessage" : "SPAM_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4401",
+  "convertResult": "2042",
+  "resultMessage" : "SPAM_SUBJECT"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4402",
+  "convertResult": "2042",
+  "resultMessage" : "SPAM_FILENAME"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4403",
+  "convertResult": "2042",
+  "resultMessage" : "SPAM_SUBCP"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "4404",
+  "convertResult": "2040",
+  "resultMessage" : "SPAM_CALLBACK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5200",
+  "convertResult": "3110",
+  "resultMessage" : "LMSCDR_UNDEFINED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5300",
+  "convertResult": "3110",
+  "resultMessage" : "LMCSDR_TERMINAL_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5310",
+  "convertResult": "3070",
+  "resultMessage" : "LMCSDR_TERMINAL_OUTOFMESSAGESIZE"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5320",
+  "convertResult": "3070",
+  "resultMessage" : "LMCSDR_TERMINAL_OUTOFMEMORY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5330",
+  "convertResult": "3070",
+  "resultMessage" : "LMSCDR_PULL_OUTOFTIME"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5401",
+  "convertResult": "3100",
+  "resultMessage" : "LMSCDR_SEND_AUTH_FAIL"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5403",
+  "convertResult": "3100",
+  "resultMessage" : "LMSCDR_SEND_OUTOFMAXRETRY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "5409",
+  "convertResult": "2040",
+  "resultMessage" : "LMSCDR_SEND_SENDER_BLOCK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "3430",
+  "convertResult": "3020",
+  "resultMessage" : "LMSC_MESSAGEFORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "7400",
+  "convertResult": "3100",
+  "resultMessage" : "MMSC_NETWORK_PROBLEM"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "7505",
+  "convertResult": "3020",
+  "resultMessage" : "MMSC_NO_HEADER"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8200",
+  "convertResult": "3110",
+  "resultMessage" : "MMSCDR_UNDEFINED"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8300",
+  "convertResult": "3110",
+  "resultMessage" : "MMSCDR_TERMINAL_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8310",
+  "convertResult": "3100",
+  "resultMessage" : "MMSCDR_TERMINAL_OUTOFMESSAGESIZE"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8320",
+  "convertResult": "3020",
+  "resultMessage" : "MMSCDR_TERMINAL_OUTOFMEMORY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8330",
+  "convertResult": "3020",
+  "resultMessage" : "LMSC_MESSAGEFORMAT_ERROR"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8401",
+  "convertResult": "3100",
+  "resultMessage" : "MMSCDR_SEND_AUTH_FAIL"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8403",
+  "convertResult": "3100",
+  "resultMessage" : "MMSCDR_SEND_OUTOFMAXRETRY"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "8408",
+  "convertResult": "2040",
+  "resultMessage" : "MMSDR_SEND_SENDER_BLOCK"
+  },
+  {
+  "provider": "KTF",
+  "msgType": "2",
+  "resultType": "2",
+  "originResult": "9999",
+  "convertResult": "3110",
+  "resultMessage" : "UNKNOWN_ERROR"
+  }
+]

@@ -3,6 +3,7 @@ package kr.co.seoultel.message.mt.mms.direct.modules.client.http;
 import jakarta.mail.MessagingException;
 import jakarta.xml.soap.SOAPException;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.TpsOverExeption;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapCreateException;
 import kr.co.seoultel.message.mt.mms.core.util.CommonUtil;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
@@ -39,7 +40,7 @@ public abstract class HttpClientHandler {
     }
 
 
-    protected abstract void doSubmit(InboundMessage inboundMessage) throws FileServerException, IOException, NAckException, MessagingException, SOAPException, ParserConfigurationException, SAXException;
+    protected abstract void doSubmit(InboundMessage inboundMessage) throws Exception;
 
 
     public String getBpid() {

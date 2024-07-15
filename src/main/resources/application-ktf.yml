@@ -1,5 +1,5 @@
 server:
-  port: 14000
+  port: 11000
   shutdown: graceful
 
 spring:
@@ -60,7 +60,7 @@ sender:
 
     endpoint:
       ip: 127.0.0.1
-      port: 15000
+      port: 11001
 #    endpoint:
 #      ip: 211.246.105.50
 #      port: 15000
@@ -68,15 +68,15 @@ sender:
 
   data-vault:
     paths:
-      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/persistence.dvt
-      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/messageHistory.dvt
-      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/republish.dvt
-      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/report.dvt
+      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/persistence.dvt
+      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/messageHistory.dvt
+      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/republish.dvt
+      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/report.dvt
 
 
 mt:
   exchange: xsend.mms                                  # write to mt exchange-name
-  queue: mt.sender.kt01                                     # write to mr exchange-name
+  queue: mt.sender.D_M_KT01                                     # write to mr exchange-name
 
 mr:
   exchange: xrpt                                  # write to mt exchange-name

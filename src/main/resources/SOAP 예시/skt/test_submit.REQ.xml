@@ -1,0 +1,92 @@
+------=_Part_3_1868611348.1720008161755
+Content-Type: text/xml; charset=euc-kr
+Content-Id: 20240703210241_9062651
+
+<?xml version="1.0" encoding="euc-kr" ?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+    <env:Header>
+        <mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0" env:mustUnderstand="1">
+            tid
+        </mm7:TransactionID>
+    </env:Header>
+    <env:Body>
+        <SubmitReq xmlns="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0">
+            <MM7Version>5.3.0</MM7Version>
+            <SenderIdentification>
+                <VASPID>arreomms</VASPID>
+                <VASID>arreo_vasId</VASID>
+                <X-SKT-BPID>arreomms_02_004</X-SKT-BPID>
+                <X-SKT-ORIG-BPID>301150163</X-SKT-ORIG-BPID>
+                <X-SKT-RELAY-BPID>0009</X-SKT-RELAY-BPID>
+                <SenderAddress>01056610926</SenderAddress>
+            </SenderIdentification>
+            <Recipients>
+                <To>
+                    <Number>01056610926</Number>
+                </To>
+            </Recipients>
+            <MessageClass>Personal</MessageClass>
+            <TimeStamp>20240703210241</TimeStamp>
+            <ExpiryDate>20430902210241</ExpiryDate>
+            <DeliveryReport>True</DeliveryReport>
+            <ReadReply>False</ReadReply>
+            <Priority>Normal</Priority>
+            <DistributionIndicator>False</DistributionIndicator>
+            <X-SKT:X-SKT xmlns:X-SKT="http://vmg.nate.com:8080/soap/skt-schema.xsd">
+                <X-SKT-Alias>01056610926</X-SKT-Alias>
+            </X-SKT:X-SKT>
+            <Subject>������κ��� LMS/MMS �޼��� ���� �����մϴ�.</Subject>
+            <Content allowAdaptations="True" href="cid:20240703210241_8560700"/>
+        </SubmitReq>
+    </env:Body>
+</env:Envelope>
+
+------=_Part_3_1868611348.1720008161755
+Content-Type: multipart/related;
+boundary="----=_Part_3_49774866.1720008161753"
+
+------=_Part_3_49774866.1720008161753
+Content-ID: <20240703210241_8560700>
+Content-Disposition: attachment; filename="message.smi"
+X-SKT-Content-Usage: 0
+X-SKT-CIDSID: 047203210241
+X-SKT-Service-Type: 0
+Content-Length: 484
+
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+    <head>
+        <meta content="4.0" name="mms_skt_version"/>
+        <layout>
+            <root-layout background-color="#FFFFFF" height="377" width="220">
+                <region height="21%" id="arreo_text" left="0%" top="79%" width="100%" z-index="0"/>
+            </root-layout>
+        </layout>
+    </head>
+    <body>
+        <par repeatCount="indefinite"/>
+        <text region="arreo_text" repeatCount="indefinite" src="cid:20240703210241_3576321">
+            <param name="style" value="scroll" valuetype="data"/>
+        </text>
+    </body>
+</smil>
+------=_Part_3_49774866.1720008161753
+Content-ID: <20240703210241_3576321>
+Content-Disposition: attachment; filename="arreo_xhtml.smi"
+X-SKT-Content-Usage: 0
+X-SKT-CIDSID: 047203210241
+X-SKT-Service-Type: 0
+Content-Length: 194
+
+<?xml version="1.0" encoding="EUC-KR"?>
+<xt xmlns="http://www.w3.org/1999/xhtml">
+    <head/>
+    <body bgcolor="#FFFFFF">
+        <div>
+            <text>??�??��?�??? LMS/MMS �??��? ???? �??��?��????.!!!</text>
+        </div>
+    </body>
+</xt>
+
+------=_Part_3_49774866.1720008161753--
+
+------=_Part_3_1868611348.1720008161755--

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+    <env:Header>
+        <mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0" env:mustUnderstand="1">
+            73501
+        </mm7:TransactionID>
+    </env:Header>
+    <env:Body>
+        <SubmitReq xmlns="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0">
+            <MM7Version>5.3.0</MM7Version>
+            <SenderIdentification>
+                <VASPID>21</VASPID>
+                <VASID>1</VASID>
+                <X-SKT-BPID>1528801080</X-SKT-BPID>
+                <X-SKT-RELAY-BPID>0009</X-SKT-RELAY-BPID>
+                <SenderAddress>01056610926</SenderAddress>
+            </SenderIdentification>
+            <X-SKT-ORIG-BPID>123456789</X-SKT-ORIG-BPID>
+            <Recipients><To><Number>01056610926</Number></To></Recipients>
+            <LinkedID/>
+            <MessageClass>Personal</MessageClass>
+            <TimeStamp>Thu, 4 Jul 2024 03:11:38 +0900</TimeStamp>
+            <ExpiryDate>Thu, 11 Jul 2024 03:11:38 +0900</ExpiryDate>
+            <DeliveryReport>True</DeliveryReport>
+            <ReadReply>False</ReadReply>
+            <Priority>Normal</Priority>
+            <DistributionIndicator>False</DistributionIndicator>
+            <X-SKT:X-SKT xmlns:X-SKT="http://vmg.nate.com:8080/soap/skt-schema.xsd">
+                <X-SKT-Alias>01056610926</X-SKT-Alias>
+            </X-SKT:X-SKT>
+            <Subject>▒~L스▒~J▒ ▒~\송</Subject>
+            <Content allowAdaptations="True" href="cid:1332667110123456789000"/>
+        </SubmitReq>
+    </env:Body>
+</env:Envelope>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ons="True" href="cid:1332667110123456789000"/></SubmitReq></env:Body></env:Envelope>^
+
+

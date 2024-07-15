@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 12000
   shutdown: graceful
 
 spring:
@@ -39,7 +39,7 @@ heart-beat:
 sender:
   name: D_M_LG01
   group: Direct
-  telecom: lgt                               # lowerCase
+  telecom: LGT                               # lowerCase
   is-dummy: on
 
   http:
@@ -60,21 +60,21 @@ sender:
         tps: 5
 
     endpoint:
-      ip: 211.246.105.50
-      port: 15000
+      ip: 127.0.0.1
+      port: 12001
 
 
   data-vault:
     paths:
-      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/persistence.dvt
-      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/messageHistory.dvt
-      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/republish.dvt
-      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/report.dvt
+      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/lgt/persistence.dvt
+      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/lgt/messageHistory.dvt
+      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/lgt/republish.dvt
+      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/lgt/report.dvt
 
 
 mt:
   exchange: xsend.mms                                  # write to mt exchange-name
-  queue: mt.sender.lg01                                     # write to mr exchange-name
+  queue: mt.sender.LG01                                     # write to mr exchange-name
 
 mr:
   exchange: xrpt                                  # write to mt exchange-name
@@ -84,15 +84,15 @@ rabbitmq:
   primary-cluster: off                    # if rabbit is clustered write on, else off
   primary-host: localhost
   primary-port: 5672
-  primary-username: guest
-  primary-password: guest
+  primary-username: arreo
+  primary-password: 1234
   primary-virtual-host: /mcmp
 
   secondary-cluster: off              # if rabbit is clustered write on, else off
   secondary-host: localhost
   secondary-port: 5672
-  secondary-username: guest
-  secondary-password: guest
+  secondary-username: arreo
+  secondary-password: 1234
   secondary-virtual-host: /mcmp
 
 

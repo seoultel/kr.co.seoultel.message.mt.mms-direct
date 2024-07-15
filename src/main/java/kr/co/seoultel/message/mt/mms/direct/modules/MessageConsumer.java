@@ -10,7 +10,7 @@ import kr.co.seoultel.message.mt.mms.core.util.*;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
-import kr.co.seoultel.message.mt.mms.core_module.dto.distributor.RoundRobinDistributor;
+import kr.co.seoultel.message.mt.mms.core_module.distributor.RoundRobinDistributor;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClient;
 import kr.co.seoultel.message.mt.mms.core_module.modules.consumer.AbstractConsumer;
 import kr.co.seoultel.message.mt.mms.core_module.modules.heartBeat.HeartBeatProtocol;

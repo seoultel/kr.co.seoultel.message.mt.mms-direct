@@ -1,0 +1,33 @@
+--NextPart_016-772-8798
+Content-Type: text/xml; charset="ks_c_5601-1987"
+Content-ID: </tnn-200102/mm7-submit>
+
+<?xml version="1.0" encoding="euc-kr"?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+    <env:Header>
+        <mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2" env:mustUnderstand="1">
+            23088
+        </mm7:TransactionID>
+    </env:Header>
+    <env:Body>
+        <mm7:SubmitReq xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-2">
+            <MM7Version>5.3.0</MM7Version>
+            <SenderIdentification>
+                <VASPID>testVASPID</VASPID><VASID>testVASID</VASID>
+                <SenderAddress>0117340299</SenderAddress>
+            </SenderIdentification>
+            <Recipients><To><Number>0117340299</Number></To></Recipients>
+            <ServiceCode>0000</ServiceCode><LinkedID>mms00016666</LinkedID>
+            <MessageClass>137</MessageClass>
+            <TimeStamp>2004-01-19T14:29:59Z</TimeStamp>
+            <EarliestDeliveryTime>2004-01-19T14:29:59Z</EarliestDeliveryTime>
+            <DeliveryReport>False</DeliveryReport>
+            <ReadReply>False</ReadReply>
+            <ChargedParty>Sender</ChargedParty>
+            <DistributionIndicator>0000</DistributionIndicator>
+            <KisaOrigCode>123456789</KisaOrigCode >
+            <Subject>엽기소녀</Subject>
+            <Content href="cid SaturnPics-01020930@news.tnn.com" allowAdaptations="True"/>
+        </mm7:SubmitReq>
+    </env:Body>
+</env:Envelope>

@@ -1,0 +1,426 @@
+[
+  {
+    "createdTime": 1721029217535,
+    "umsMsgId": "93524234363302745695",
+    "srcMsgId": "86065946790370809943",
+    "dstMsgId": "202407151640174717919285",
+    "cmpMsgId": "642942083399399508",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029217765,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(93524234363302745695)"
+      },
+      {
+        "processedTime": 1721029217971,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(93524234363302745695)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164017",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164017",
+      "pfmRcvDttm": "20240715164017",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029217519,
+    "umsMsgId": "992469998584087816",
+    "srcMsgId": "3862543664091996283",
+    "dstMsgId": "202407151640177584837988",
+    "cmpMsgId": "05001769224857668732",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029217602,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(992469998584087816)"
+      },
+      {
+        "processedTime": 1721029217941,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(992469998584087816)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164017",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164017",
+      "pfmRcvDttm": "20240715164017",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029236264,
+    "umsMsgId": "0475040058628962000",
+    "srcMsgId": "39388808369459316727",
+    "dstMsgId": "202407151640364343138724",
+    "cmpMsgId": "22277689024520315868",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029236269,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(0475040058628962000)"
+      },
+      {
+        "processedTime": 1721029236533,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(0475040058628962000)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164036",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164036",
+      "pfmRcvDttm": "20240715164036",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029231212,
+    "umsMsgId": "7261102891971710616",
+    "srcMsgId": "5858174143041600908",
+    "dstMsgId": "202407151640310100064403",
+    "cmpMsgId": "148978204597158871",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029231223,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(7261102891971710616)"
+      },
+      {
+        "processedTime": 1721029231441,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(7261102891971710616)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164031",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164031",
+      "pfmRcvDttm": "20240715164031",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721028094388,
+    "umsMsgId": "8661757249329606139",
+    "srcMsgId": "069992995050565630",
+    "dstMsgId": "202407151621343007557198",
+    "cmpMsgId": "68393543754493179961",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721028094492,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(8661757249329606139)"
+      },
+      {
+        "processedTime": 1721028094861,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(8661757249329606139)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715162134",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715162134",
+      "pfmRcvDttm": "20240715162134",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029217535,
+    "umsMsgId": "7161306235269893137",
+    "srcMsgId": "913473347849639429",
+    "dstMsgId": "202407151640179735618566",
+    "cmpMsgId": "977625378747128717",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029217777,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(7161306235269893137)"
+      },
+      {
+        "processedTime": 1721029217982,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(7161306235269893137)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164017",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164017",
+      "pfmRcvDttm": "20240715164017",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029217535,
+    "umsMsgId": "516128983284812585",
+    "srcMsgId": "16077731858365504935",
+    "dstMsgId": "202407151640178724373490",
+    "cmpMsgId": "7859482461023279774",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029217788,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(516128983284812585)"
+      },
+      {
+        "processedTime": 1721029217996,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(516128983284812585)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164017",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164017",
+      "pfmRcvDttm": "20240715164017",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  },
+  {
+    "createdTime": 1721029217535,
+    "umsMsgId": "8027776273810933605",
+    "srcMsgId": "9528087675737738033",
+    "dstMsgId": "202407151640174807274695",
+    "cmpMsgId": "2555299494063610679",
+    "groupCode": "A000010",
+    "channel": "MMS",
+    "sender": "01056610926",
+    "callback": "01056610926",
+    "receiver": "01056610926",
+    "adFlag": false,
+    "content": {
+      "subject": "MCMP 화이팅",
+      "message": "아자아자 화이팅",
+      "mediaFiles": [],
+      "originCode": "123456789",
+      "vasFlag": false
+    },
+    "processHistory": [
+      {
+        "processedTime": 1721029217751,
+        "processorName": "D_M_KT01",
+        "action": "SUBMIT(8027776273810933605)"
+      },
+      {
+        "processedTime": 1721029217957,
+        "processorName": "D_M_KT01",
+        "action": "REPORT(8027776273810933605)"
+      }
+    ],
+    "serviceProvider": "SKT",
+    "deliveryProcess": "D_M_KT01",
+    "deliveryState": 3,
+    "deliveryType": 3,
+    "result": {
+      "code": "",
+      "message": "Success to Send Message",
+      "mnoCd": "DIRECT",
+      "mnoResult": "1000",
+      "settleCode": "D_M_KT01",
+      "srcSndDttm": "20240715164017",
+      "srcRcvDttm": "",
+      "pfmSndDttm": "20240715164017",
+      "pfmRcvDttm": "20240715164017",
+      "triedMnos": [
+        "KTF"
+      ]
+    },
+    "reportTo": "http://192.168.50.24:8001",
+    "timeToLive": 0,
+    "retryCount": 0
+  }
+]

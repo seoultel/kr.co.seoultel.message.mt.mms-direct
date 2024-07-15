@@ -1,0 +1,61 @@
+------=_Part_0_1895634314.1720073499250
+Content-Type: text/xml; charset=euc-kr
+Content-Id: <start_MM7_SOAP>
+
+<?xml version="1.0" encoding="euc-kr" ?><env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"><env:Header><mm7:TransactionID xmlns:mm7="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0" env:mustUnderstand="1">73501</mm7:TransactionID></env:Header><env:Body><SubmitReq xmlns="http://www.3gpp.org/ftp/Specs/archive/23_series/23.140/schema/REL-5-MM7-1-0"><MM7Version>5.3.0</MM7Version><SenderIdentification><VASPID>21</VASPID><VASID>1</VASID><X-SKT-BPID>1528801080</X-SKT-BPID><X-SKT-RELAY-BPID>0009</X-SKT-RELAY-BPID><SenderAddress>01056610926</SenderAddress></SenderIdentification><X-SKT-ORIG-BPID>123456789</X-SKT-ORIG-BPID><Recipients><To><Number>01056610926</Number></To></Recipients><LinkedID/><MessageClass>Personal</MessageClass><TimeStamp>Thu, 4 Jul 2024 03:11:38 +0900</TimeStamp><ExpiryDate>Thu, 11 Jul 2024 03:11:38 +0900</ExpiryDate><DeliveryReport>True</DeliveryReport><ReadReply>False</ReadReply><Priority>Normal</Priority><DistributionIndicator>False</DistributionIndicator><X-SKT:X-SKT xmlns:X-SKT="http://vmg.nate.com:8080/soap/skt-schema.xsd"><X-SKT-Alias>01056610926</X-SKT-Alias></X-SKT:X-SKT><Subject>테스트 발송</Subject><Content allowAdaptations="True" href="cid:1332667110123456789000"/></SubmitReq></env:Body></env:Envelope>
+------=_Part_0_1895634314.1720073499250
+Content-Type: multipart/related;
+        boundary="----=_Part_0_779832829.1720073498944"
+
+------=_Part_0_779832829.1720073498944
+Content-ID: <1332667110123456789000>
+Content-Disposition: attachment; filename="arreo_smil.smi"
+Content-Type: application/smil
+X-SKT-Content-Usage: 0
+X-SKT-CIDSID: 1332667110
+X-SKT-Service-Type: 0
+Content-Length: 492
+
+<?xml version="1.0" encoding="euc-kr"?>
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+<head>
+<layout>
+<root-layout background-color="#E7E3E7"/>
+<region id="text" top="0%" left="0%" width="100%" height="100%" z-index="0"  />
+</layout>
+</head>
+<body>
+<par repeatCount="indefinite">
+<text region="text" src="1332667110123456789001" begin="0" dur="indefinite" repeatCount="indefinite" >
+<param name="style" value="scroll" valuetype="data"/>
+</text>
+</par>
+</body>
+</smil>
+
+------=_Part_0_779832829.1720073498944
+Content-ID: <1332667110123456789001>
+Content-Disposition: attachment; filename="arreo_xt.xt"
+Content-Type: text/x-sktxt
+X-SKT-Content-Usage: 0
+X-SKT-CIDSID: 1332667110
+X-SKT-Service-Type: 0
+Content-Length: 603
+
+<?xml version="1.0" encoding="euc-kr"?>
+<xt xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style type="text/css">
+<!--color1{color:0,0,0;}color2{color:255,0,0;}color3{color:255,168,0;}color4{color:255,255,0;}color5{color:128,128,0;}color6{color:128,0,128;}color7{color:255,0,255;}color8{color:0,255,0;}color9{color:0,128,0;}color10{color:0,0,128;}color11{color:0,0,255;}color12{color:0,255,255;}color13{color:128,0,0;}color14{color:192,192,192;}color15{color:153,153,153;}color16{color:255,255,255;}-->
+</style>
+</head>
+<body bgcolor="#E7E3E7">
+<div>
+<color1>9</color1>
+</div>
+</body>
+</xt>
+
+------=_Part_0_779832829.1720073498944--
+
+------=_Part_0_1895634314.1720073499250--

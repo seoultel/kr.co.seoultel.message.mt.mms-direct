@@ -1,0 +1,29 @@
+1000, Success
+1100, Partial success
+2000, Client error
+2001, Operation restricted
+2002, Address Error
+2003, Address Not Found
+2004, Multimedia content refused,
+2005, Message ID Not found
+2006, LinkedID not found
+2007, Message format corrupt
+3000, Server Error
+3001, Not Possible
+3002, Message rejected
+3003, "Multiple addresses not supported "
+4000, General service error
+4001, Improper identification
+4002, Unsupported version
+4003, Unsupported operation
+4004, Validation error
+4005, Service error
+4006, Service unavailable
+4007, Service denied
+4030, System error
+4032, Kisacode error
+6014, Subs Reject
+6024, Invalid AuthPassword
+6025, Expired Password
+6072, MMS Disable Subs
+7103, Traffic is over

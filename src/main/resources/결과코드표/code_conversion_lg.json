@@ -1,0 +1,480 @@
+{
+  "provider": "LGT",
+  "msgType": "2",
+  "resultType": "1",
+  "originResult": "1000",
+  "convertResult": "99",
+  "resultMessage" : "SUCCESS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "1100",
+"convertResult": "99",
+"resultMessage" : "SUCCESS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2000",
+"convertResult": "3020",
+"resultMessage" : "CLIENT_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2001",
+"convertResult": "3100",
+"resultMessage" : "OPERATION_RESTRICTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2002",
+"convertResult": "3020",
+"resultMessage" : "ADDRESS_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2003",
+"convertResult": "3090",
+"resultMessage" : "ADDRES_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2004",
+"convertResult": "3020",
+"resultMessage" : "MULTIMEDIA_CONTENT_REFUSED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2005",
+"convertResult": "3020",
+"resultMessage" : "MESSAGE_ID_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2006",
+"convertResult": "3020",
+"resultMessage" : "LINKEDID_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "2007",
+"convertResult": "3020",
+"resultMessage" : "MESSAGE_FORMAT_CORRUPT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "3000",
+"convertResult": "3100",
+"resultMessage" : "SERVER_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "3001",
+"convertResult": "3020",
+"resultMessage" : "NOT_POSSIBLE"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "3002",
+"convertResult": "3090",
+"resultMessage" : "MESSAGE_REJECTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "3003",
+"convertResult": "3090",
+"resultMessage" : "MULTIPLE_ADDRESSES_NOT_SUPPORTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4000",
+"convertResult": "3020",
+"resultMessage" : "GENERAL_SERVICE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4001",
+"convertResult": "3020",
+"resultMessage" : "IMPROPER_IDENTIFICATION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4002",
+"convertResult": "3020",
+"resultMessage" : "USUPPORTED_VERSION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4003",
+"convertResult": "3020",
+"resultMessage" : "UNSUPPORTED_OPERATION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4004",
+"convertResult": "3020",
+"resultMessage" : "VALIDATION_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4005",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4006",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_UNAVAILABLE"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4007",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_DENIED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4030",
+"convertResult": "3020",
+"resultMessage" : "SYSTEM_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "4032",
+"convertResult": "3120",
+"resultMessage" : "KISACODE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "6012",
+"convertResult": "3050",
+"resultMessage" : "PORT_OUT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "6014",
+"convertResult": "2040",
+"resultMessage" : "SUBS_REJECT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "6024",
+"convertResult": "3020",
+"resultMessage" : "INVALID_AUTH_PASSWORD"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "6025",
+"convertResult": "3020",
+"resultMessage" : "EXPIRED_PASSWORD"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "6072",
+"convertResult": "3060",
+"resultMessage" : "MMS_DISABLE_SUBS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "1",
+"originResult": "7103",
+"convertResult": "3110",
+"resultMessage" : "TRAFFIC_IS_OVER"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "1000",
+"convertResult": "-100",
+"resultMessage" : "SUCCESS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "1100",
+"convertResult": "99",
+"resultMessage" : "SUCCESS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2000",
+"convertResult": "3020",
+"resultMessage" : "CLIENT_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2001",
+"convertResult": "3100",
+"resultMessage" : "OPERATION_RESTRICTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2002",
+"convertResult": "3020",
+"resultMessage" : "ADDRESS_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2003",
+"convertResult": "3090",
+"resultMessage" : "ADDRES_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2004",
+"convertResult": "3020",
+"resultMessage" : "MULTIMEDIA_CONTENT_REFUSED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2005",
+"convertResult": "3020",
+"resultMessage" : "MESSAGE_ID_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2006",
+"convertResult": "3020",
+"resultMessage" : "LINKEDID_NOT_FOUND"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "2007",
+"convertResult": "3020",
+"resultMessage" : "MESSAGE_FORMAT_CORRUPT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "3000",
+"convertResult": "3100",
+"resultMessage" : "SERVER_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "3001",
+"convertResult": "3020",
+"resultMessage" : "NOT_POSSIBLE"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "3002",
+"convertResult": "3090",
+"resultMessage" : "MESSAGE_REJECTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "3003",
+"convertResult": "3090",
+"resultMessage" : "MULTIPLE_ADDRESSES_NOT_SUPPORTED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4000",
+"convertResult": "3020",
+"resultMessage" : "GENERAL_SERVICE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4001",
+"convertResult": "3020",
+"resultMessage" : "IMPROPER_IDENTIFICATION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4002",
+"convertResult": "3020",
+"resultMessage" : "USUPPORTED_VERSION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4003",
+"convertResult": "3020",
+"resultMessage" : "UNSUPPORTED_OPERATION"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4004",
+"convertResult": "3020",
+"resultMessage" : "VALIDATION_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4005",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4006",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_UNAVAILABLE"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4007",
+"convertResult": "3020",
+"resultMessage" : "SERVICE_DENIED"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4030",
+"convertResult": "3020",
+"resultMessage" : "SYSTEM_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "4032",
+"convertResult": "3120",
+"resultMessage" : "KISACODE_ERROR"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "6012",
+"convertResult": "3050",
+"resultMessage" : "PORT_OUT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "6014",
+"convertResult": "2040",
+"resultMessage" : "SUBS_REJECT"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "6024",
+"convertResult": "3020",
+"resultMessage" : "INVALID_AUTH_PASSWORD"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "6025",
+"convertResult": "3020",
+"resultMessage" : "EXPIRED_PASSWORD"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "6072",
+"convertResult": "3060",
+"resultMessage" : "MMS_DISABLE_SUBS"
+},
+{
+"provider": "LGT",
+"msgType": "2",
+"resultType": "2",
+"originResult": "7103",
+"convertResult": "3110",
+"resultMessage" : "TRAFFIC_IS_OVER"
+},

@@ -1,0 +1,29 @@
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+    <head>
+        <meta name="mms_skt_version" content="4.0"/>
+        <layout>
+            <root-layout width="220" height="377" background-color="#FFFFFF"/>
+            <region id="image1" top="0" left="0" width="220" height="185" z-index="0"/>
+            <region id="text1" top="185" left="0" width="220" height="192" z-index="0"/>
+            <region id="video1" top="0" left="0" width="220" height="377" z-index="0"/>
+            <region id="flashcon1" top="0" left="0" width="220" height="192" z-index="1"/>
+        </layout>
+    </head>
+    <body>
+        <seq>
+            <video id="mc_video" region="video1" src="cid:<CID_H>“ begin="0" dur="media"/>
+            <par repeatCount="indefinite">
+                <seq repeatCount="indefinite">
+                    <img id="mc_image1" region="image1" src="cid:<CID_C>" begin="0" dur="5"/>
+                    <img id="mc_image2" region="image1" src="cid:<CID_D>" begin="0" dur="5"/>
+                    <img id="mc_image3" region="image1" src="cid:<CID_E>" begin="0" dur="5"/>
+                </seq>
+                <text id="mc_text" repeatCount="indefinite" region="text1" src="cid:<CID_B>" begin="0" dur="15" style="normal"/>
+                <seq>
+                    <img id="mc_flashcon" region="flashcon1" src="cid:<CID_F>" begin="0" dur="media"/>
+                    <audio id="mc_audio" repeatCount="indefinite" src="cid:<CID_G>" begin="0" dur="media"/>
+                </seq>
+            </par>
+        </seq>
+    </body>
+</smil>
