@@ -48,20 +48,33 @@ sender:
     vasp-id: "arreomms"
 
     cpids:
-      - cpid: "1528800827"
-        tps: 5
-      - cpid: "1528800916"
-        tps: 5
-      - cpid: "1528800918"
-        tps: 5
-      - cpid: "1528801068"
-        tps: 5
-      - cpid: "1528801069"
-        tps: 5
+      - cpid: "1528801080"
+        tps: 20
+      - cpid: "1528801081"
+        tps: 20
+      - cpid: "1528801082"
+        tps: 20
+      - cpid: "1528801083"
+        tps: 20
+      - cpid: "1528801084"
+        tps: 20
 
     endpoint:
       ip: 127.0.0.1
       port: 12001
+
+  storage:
+    persistence:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/persistence.dvt
+
+    history:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/messageHistory.dvt
+
+    republish:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/republish.dvt
+
+    report:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/report.dvt
 
 
   data-vault:
@@ -74,7 +87,7 @@ sender:
 
 mt:
   exchange: xsend.mms                                  # write to mt exchange-name
-  queue: mt.sender.LG01                                     # write to mr exchange-name
+  queue: mt.sender.D_M_LG01                                     # write to mr exchange-name
 
 mr:
   exchange: xrpt                                  # write to mt exchange-name

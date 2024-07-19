@@ -1,5 +1,6 @@
 package kr.co.seoultel.message.mt.mms.direct.config;
 
+import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
 import lombok.RequiredArgsConstructor;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.springframework.context.annotation.Bean;
@@ -14,15 +15,15 @@ import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 @RequiredArgsConstructor
 public class AspectConfig {
 
-    protected final ConcurrentLinkedQueue<MrReport> reportQueue;
-
-    @Bean
-    public RabbitMqAspect rabbitMqAspect() {
-        return new RabbitMqAspect(reportQueue);
-    }
-
     @Bean
     public RedisAspect redisAspect() {
         return new RedisAspect();
     }
+
+    @Bean
+    public RabbitMqAspect rabbitMqAspect(QueueStorage<MrReport> reportQueueStorage) {
+        return new RabbitMqAspect(reportQueueStorage);
+    }
+
+
 }

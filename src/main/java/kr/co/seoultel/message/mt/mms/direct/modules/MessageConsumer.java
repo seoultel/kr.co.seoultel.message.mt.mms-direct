@@ -5,12 +5,18 @@ import kr.co.seoultel.message.core.dto.MessageDelivery;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.TpsOverExeption;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.FormatException;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.MessageDeserializationException;
-
+import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.util.*;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerDisconnectionException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerException;
-import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerTokenException;
+import kr.co.seoultel.message.mt.mms.core_module.distributor.Distributable;
+import kr.co.seoultel.message.mt.mms.core_module.distributor.WeightNode;
+import kr.co.seoultel.message.mt.mms.core_module.distributor.WeightedRoundRobinDistributor;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
-import kr.co.seoultel.message.mt.mms.core_module.distributor.RoundRobinDistributor;
+import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
+import kr.co.seoultel.message.mt.mms.core_module.utils.MMSReportUtil;
+import kr.co.seoultel.message.mt.mms.direct.config.FileServerConfig;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClient;
 import kr.co.seoultel.message.mt.mms.core_module.modules.consumer.AbstractConsumer;
 import kr.co.seoultel.message.mt.mms.core_module.modules.heartBeat.HeartBeatProtocol;
@@ -26,26 +32,29 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.net.ConnectException;
 
 @Slf4j
 @Component
 public class MessageConsumer extends AbstractConsumer {
 
-    private final RoundRobinDistributor<HttpClient> distributor;
+    private final int totalTps;
 
-    private final RabbitMQConfig rabbitMQConfig;
     private final CachingConnectionFactory cachingConnectionFactory;
+    private final Distributable<WeightNode<HttpClient>> distributor;
+
 
 
     public MessageConsumer(RabbitMQConfig rabbitMQConfig, CachingConnectionFactory cachingConnectionFactory,
-                        ConcurrentLinkedQueue<MrReport> reportQueue, ConcurrentLinkedQueue<MessageDelivery> republishQueue, List<HttpClient> httpClients) {
-        super(reportQueue, republishQueue);
+                           Integer totalTps,
+                           WeightedRoundRobinDistributor<WeightNode<HttpClient>> weightNodeWeightedRoundRobinDistributor,
+                           QueueStorage<MessageDelivery> republishQueueStorage, QueueStorage<MrReport> reportQueueStorage) {
+        super(rabbitMQConfig, republishQueueStorage, reportQueueStorage);
 
-        this.rabbitMQConfig = rabbitMQConfig;
         this.cachingConnectionFactory = cachingConnectionFactory;
-        this.distributor = new RoundRobinDistributor<HttpClient>(httpClients);
+
+        this.totalTps = totalTps;
+        this.distributor = weightNodeWeightedRoundRobinDistributor;
     }
 
     public void init() {
@@ -81,10 +90,11 @@ public class MessageConsumer extends AbstractConsumer {
     }
 
     @Override
-    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] bytes) throws IOException {
+    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] bytes) throws IOException{
         long deliveryTag = envelope.getDeliveryTag();
 
         try {
+
             MessageDelivery messageDelivery = ConvertorUtil.convertBytesToObject(bytes, MessageDelivery.class);
             log.info("[Consume] Successfully consume message[{}] from rabbitMQ", messageDelivery.getUmsMsgId());
 
@@ -100,30 +110,56 @@ public class MessageConsumer extends AbstractConsumer {
             log.info("[Validate] Successfully message[{}] validated [{}]", messageDelivery.getUmsMsgId(), messageDelivery);
 
             InboundMessage inboundMessage = new InboundMessage(deliveryTag, messageDelivery, this);
-            HttpClient httpClient = distributor.get();
-            httpClient.doSubmit(inboundMessage);
-        } catch(FormatException e) {
-            log.error(e.getMessage());
+            WeightNode<HttpClient> weightNode = distributor.get();
+            weightNode.getElement().doSubmit(inboundMessage);
+        } catch (FormatException e) {
+            log.warn(e.getMessage());
 
             if (e instanceof MessageDeserializationException) {
                 channel.basicAck(deliveryTag, false);
                 return;
             }
+
+            MessageDelivery messageDelivery = e.getMessageDelivery();
+            MMSReportUtil.handleSenderException(messageDelivery, e.getReportMessage(), e.getMnoResult(), e.getDeliveryType());
+
+            // Validation 이 끝난 경우, MessageDelivery 객체는 null 이 아님.
+            reportQueueStorage.add(new MrReport(DeliveryType.SUBMIT_ACK, messageDelivery));
+
+            channel.basicAck(deliveryTag, false);
         } catch (FileServerException e) {
-            throw new RuntimeException(e);
-        } catch (NAckException e) {
-            throw new RuntimeException(e);
+            if (e instanceof FileServerTokenException) {
+                log.warn("[SYSTEM] INVALID FILE-SERVER TOKEN[{}]", FileServerConfig.TOKEN);
+                channel.basicNack(deliveryTag, false, true);
+                return;
+            }
+
+            if (e instanceof FileServerDisconnectionException) {
+                log.warn("[SYSTEM] TEMPORARY DISCONNECTED TO FILE-SERVER");
+                channel.basicNack(deliveryTag, false, true);
+                return;
+            }
+
+            /*
+             * 1. AttatchedImageFormatException : number of images in message is excess 3
+             * 2. ImageNotFoundException : groypCode is not corresponed to imageId of image attached in message
+             * 3. ImageExpiredException : expired images attached in message images
+             * 4. FileServerException : unknown exception
+             */
+            log.warn(e.getMessage());
+            MMSReportUtil.handleSenderException(e.getMessageDelivery(), e.getReportMessage(), e.getMnoResult(), e.getDeliveryType());
+            channel.basicAck(deliveryTag, false);
+
+            reportQueueStorage.add(new MrReport(DeliveryType.SUBMIT_ACK, e.getMessageDelivery()));
         } catch (TpsOverExeption e) {
             long sleepTime = DateUtil.getTimeGapUntilNextSecond();
             CommonUtil.doThreadSleep(sleepTime);
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
-            e.printStackTrace();
-            log.error("e.getMessage() : {}", e.getMessage(), e);
-            log.error("HERER? ??E R");
+            log.error("[Exception] : {}", e.getMessage(), e);
+            channel.basicAck(deliveryTag, false);
         }
     }
-
 
     @Override
     public void createChannel() {
@@ -133,7 +169,7 @@ public class MessageConsumer extends AbstractConsumer {
 
             Channel channel;
 
-            if (!rabbitMQConfig.isPrimaryCluster()) {
+            if (!rabbitMqConfig.isPrimaryCluster()) {
                 clientCon = cachingConnectionFactory.getRabbitConnectionFactory().newConnection();
                 channel = clientCon.createChannel();
             } else {
@@ -145,7 +181,7 @@ public class MessageConsumer extends AbstractConsumer {
                 HeartBeatClient.setHStatus(HeartBeatProtocol.HEART_SUCCESS);
                 setChannel(channel);
             }
-        } catch (AlreadyClosedException | AmqpIOException | java.net.ConnectException e) {
+        } catch (AlreadyClosedException | AmqpIOException | ConnectException e) {
             log.error("[DISCONNECTED TO RABBIT] FAILED TO GETTING RABBIT CHANNEL");
         } catch(Exception e) {
             log.error("Exception occurs in creating client Connection", e);
@@ -155,10 +191,12 @@ public class MessageConsumer extends AbstractConsumer {
 
     public void setChannel(@NonNull Channel channel) {
         try {
-            channel.basicQos(distributor.getSize());
+            String mtQueueName = rabbitMqConfig.getMtQueue();
+            String mtExchangeName = rabbitMqConfig.getMtExchange();
+
+            channel.basicQos(totalTps);
             channel.basicRecover(true);
             channel.queueBind(mtQueueName, mtExchangeName, mtQueueName);
-
             this.channel = channel;
 
             log.info("[CONSUMER] Consumer's channel[channel-number : {}] is activated", channel.getChannelNumber());
@@ -209,19 +247,18 @@ public class MessageConsumer extends AbstractConsumer {
     }
 
     public boolean isCreatableChannel() throws IOException {
-        AMQP.Queue.DeclareOk declareOk = channel.queueDeclarePassive(mtQueueName);
+        AMQP.Queue.DeclareOk declareOk = channel.queueDeclarePassive(rabbitMqConfig.getMtQueue());
         return declareOk.getConsumerCount() == 0;
     }
 
     public int getConsumerCount() throws IOException {
-        AMQP.Queue.DeclareOk declareOk = channel.queueDeclarePassive(mtQueueName);
+        AMQP.Queue.DeclareOk declareOk = channel.queueDeclarePassive(rabbitMqConfig.getMtQueue());
         return declareOk.getConsumerCount();
     }
 
 
     public void destroy() {
         closeChannel();
-        republishQueueDataVault.destroy(republishQueue);
         log.info("[SHUTDOWN] ReportProcessor is gracefully shutdowned");
     }
 }

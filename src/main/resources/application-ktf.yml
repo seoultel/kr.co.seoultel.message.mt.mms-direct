@@ -48,15 +48,16 @@ sender:
     vasp-id: "arreomms"
 
     cpids:
-      - cpid: "arreomms_02_001"
-        tps: 5
-      - cpid: "arreomms_02_002"
-        tps: 5
-      - cpid: "arreomms_02_003"
-        tps: 5
-      - cpid: "arreomms_02_004"
-        tps: 5
-
+      - cpid: "1528801080"
+        tps: 10
+      - cpid: "1528801081"
+        tps: 15
+      - cpid: "1528801082"
+        tps: 7
+      - cpid: "1528801083"
+        tps: 20
+      - cpid: "1528801084"
+        tps: 13
 
     endpoint:
       ip: 127.0.0.1
@@ -65,13 +66,18 @@ sender:
 #      ip: 211.246.105.50
 #      port: 15000
 
+  storage:
+    persistence:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/ktf/tps.storage
 
-  data-vault:
-    paths:
-      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/persistence.dvt
-      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/messageHistory.dvt
-      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/republish.dvt
-      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/ktf/report.dvt
+    history:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/ktf/messageHistory.storage
+
+    republish:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/ktf/republish.storage
+
+    report:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/ktf/report.storage
 
 
 mt:

@@ -2,16 +2,20 @@ package kr.co.seoultel.message.mt.mms.direct.skt;
 
 import kr.co.seoultel.message.core.dto.MessageDelivery;
 import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.common.protocol.SktProtocol;
 import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.skt.SktSubmitResMessage;
 import kr.co.seoultel.message.mt.mms.core.util.CommonUtil;
 import kr.co.seoultel.message.mt.mms.core.util.DateUtil;
 import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckType;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
-import kr.co.seoultel.message.mt.mms.core_module.modules.PersistenceManager;
+
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
+import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientHandler;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 import kr.co.seoultel.message.mt.mms.direct.util.skt.SktMMSReportUtil;
@@ -24,7 +28,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.SocketTimeoutException;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
 
 @Slf4j
@@ -38,8 +41,8 @@ public class SktClientHandler extends HttpClientHandler {
     protected final SktMMSReportUtil sktMMSReportUtil = new SktMMSReportUtil();
 
 
-    public SktClientHandler(HttpClientProperty property, PersistenceManager persistenceManager, ConcurrentLinkedQueue<MrReport> reportQueue) {
-        super(property, persistenceManager, reportQueue);
+    public SktClientHandler(HttpClientProperty property, HashMapStorage<String, MessageDelivery>deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
+        super(property,  deliveryStorage, reportQueueStorage);
 
         this.soapUtil = new SktSoapUtil(property);
         this.endpoint = new SktEndpoint(property);
@@ -52,22 +55,20 @@ public class SktClientHandler extends HttpClientHandler {
      *
      */
     @Override
-    protected void doSubmit(InboundMessage inboundMessage) throws Exception {
+    protected void doSubmit(InboundMessage inboundMessage) throws MCMPSoapRenderException, NAckException {
         String soapMessageToString = soapUtil.createSOAPMessage(inboundMessage);
         MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
 
         String umsMsgId = messageDelivery.getUmsMsgId();
-
         sktMMSReportUtil.prepareToSubmit(FallbackUtil.isFallback(messageDelivery), messageDelivery);
 
         try {
             /* Request of submit */
             HttpEntity<String> httpEntity = getSubmitHttpEntity(soapMessageToString);
             ResponseEntity<String> response = restTemplate.exchange(endpoint.getHttpUrl(),
-                    HttpMethod.POST,
-                    httpEntity,
-                    String.class);
-
+                                                                    HttpMethod.POST,
+                                                                    httpEntity,
+                                                                    String.class);
 
             String xml = response.getBody();
             assert xml != null;
@@ -79,16 +80,16 @@ public class SktClientHandler extends HttpClientHandler {
             String statusCode = sktSubmitResMessage.getStatusCode();
             String statusText = sktSubmitResMessage.getStatusText();
             messageDelivery.setDstMsgId(messageId);
-//
+
             NAckType nAckType = SktUtil.getNAckTypeSubmitAckStatusCode(statusCode);
             if (nAckType.equals(NAckType.ACK)) {
+                sktMMSReportUtil.prepareToSubmitAck(messageDelivery, sktSubmitResMessage);
                 MessageDelivery cloneDelivery = (MessageDelivery) messageDelivery.clone();
-
                 switch (statusCode) {
                     case SktProtocol.SUCCESS:
                         log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck of message[{}] from SKT", cloneDelivery);
-                        sktMMSReportUtil.prepareToSubmitAck(messageDelivery, sktSubmitResMessage);
-                        persistenceManager.saveMessageByUmsMsgId(messageId, cloneDelivery);
+
+                        deliveryStorage.put(messageId, cloneDelivery);
                         break;
 
                     default:
@@ -97,12 +98,10 @@ public class SktClientHandler extends HttpClientHandler {
                 }
 
                 MrReport mrReport = new MrReport(DeliveryType.SUBMIT_ACK, cloneDelivery);
-                /*reportQueueStorage.*/
-                reportQueue.add(mrReport);
-                log.info("[SUBMIT-ACK] Successfully add Report[{}] in reportQueue", sktSubmitResMessage);
+                reportQueueStorage.add(mrReport);
+                log.info("[REPORT-QUEUE] Successfully add SubmitAck[{}] in reportQueue", sktSubmitResMessage);
 
                 inboundMessage.basicAck();
-                return;
             } else {
                 /* 전송 가능 TPS를 초과한 경우 */
                 if (sktSubmitResMessage.isTpsOver()) {
@@ -115,11 +114,10 @@ public class SktClientHandler extends HttpClientHandler {
                     log.warn("[SUBMIT_ACK | FAIL] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from SKT", sktSubmitResMessage, umsMsgId);
                 }
 
-
-                // send nack to rabbitmq
                 inboundMessage.basicNack();
-                return;
             }
+
+            return;
         }
         // 4xx 번대 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
         catch (org.springframework.web.client.HttpClientErrorException e) {
@@ -153,7 +151,7 @@ public class SktClientHandler extends HttpClientHandler {
             log.error("[SUBMIT] Fail to send MM7_Submit.REQ, requeue message[{}]", messageDelivery, e);
         }
 
-        inboundMessage.basicNack();
+         inboundMessage.basicNack();
     }
 
     private HttpEntity<String> getSubmitHttpEntity(String soapMessageToString) {

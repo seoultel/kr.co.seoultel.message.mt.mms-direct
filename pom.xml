@@ -11,7 +11,7 @@
 
     <groupId>kr.co.seoultel</groupId>
     <artifactId>kr.co.seoultel.mms.direct</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <name>kr.co.seoultel.message.mt.mms-direct</name>
     <description>kr.co.seoultel.message.mt.mms-direct</description>
 
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>kr.co.seoultel.message</groupId>
             <artifactId>mms-core-modules</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
 
         <dependency>

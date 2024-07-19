@@ -1,38 +1,33 @@
 package kr.co.seoultel.message.mt.mms.direct.modules.client.http;
 
-import jakarta.mail.MessagingException;
-import jakarta.xml.soap.SOAPException;
+import kr.co.seoultel.message.core.dto.MessageDelivery;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.TpsOverExeption;
-import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapCreateException;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.util.CommonUtil;
-import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.FileServerException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
-import kr.co.seoultel.message.mt.mms.core_module.modules.PersistenceManager;
-import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
-import kr.co.seoultel.message.mt.mms.direct.modules.MessageConsumer;
-import lombok.extern.slf4j.Slf4j;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
+import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
 public abstract class HttpClientHandler {
 
     protected final HttpClientProperty property;
 
-    protected final PersistenceManager persistenceManager;
-    protected final ConcurrentLinkedQueue<MrReport> reportQueue;
+    protected final HashMapStorage<String, MessageDelivery> deliveryStorage;
+    protected final QueueStorage<MrReport> reportQueueStorage;
 
 
-    public HttpClientHandler(HttpClientProperty property, PersistenceManager persistenceManager, ConcurrentLinkedQueue<MrReport> reportQueue) {
+    public HttpClientHandler(HttpClientProperty property, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
         this.property = property;
 
-        this.persistenceManager = persistenceManager;
-
-        this.reportQueue = reportQueue;
+        this.deliveryStorage = deliveryStorage;
+        this.reportQueueStorage = reportQueueStorage;
     }
 
     protected void isTpsOver() throws TpsOverExeption {
@@ -40,7 +35,11 @@ public abstract class HttpClientHandler {
     }
 
 
-    protected abstract void doSubmit(InboundMessage inboundMessage) throws Exception;
+    public void addReportQueue(MrReport mrReport) {
+        reportQueueStorage.add(mrReport);
+    }
+
+    protected abstract void doSubmit(InboundMessage inboundMessage) throws MCMPSoapRenderException, NAckException;
 
 
     public String getBpid() {

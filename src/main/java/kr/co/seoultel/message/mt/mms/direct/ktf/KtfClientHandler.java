@@ -2,12 +2,13 @@ package kr.co.seoultel.message.mt.mms.direct.ktf;
 
 import kr.co.seoultel.message.core.dto.MessageDelivery;
 import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.common.protocol.KtfProtocol;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfResMessage;
 import kr.co.seoultel.message.mt.mms.core.util.*;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckType;
-import kr.co.seoultel.message.mt.mms.core_module.modules.PersistenceManager;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
@@ -18,7 +19,6 @@ import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientHandle
 import kr.co.seoultel.message.mt.mms.direct.util.ktf.KtfMMSReportUtil;
 import kr.co.seoultel.message.mt.mms.direct.util.ktf.KtfSoapUtil;
 import kr.co.seoultel.message.mt.mms.direct.util.ktf.KtfUtil;
-import kr.co.seoultel.message.mt.mms.direct.util.lgt.LgtMMSReportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -26,7 +26,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.SocketTimeoutException;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
 
 import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.EUC_KR;
@@ -46,8 +45,8 @@ public class KtfClientHandler extends HttpClientHandler {
     protected final KtfMMSReportUtil ktfMMSReportUtil = new KtfMMSReportUtil();
 
 
-    public KtfClientHandler(HttpClientProperty property, PersistenceManager persistenceManager, ConcurrentLinkedQueue<MrReport> reportQueue) {
-        super(property, persistenceManager, reportQueue);
+    public KtfClientHandler(HttpClientProperty property, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
+        super(property, deliveryStorage, reportQueueStorage);
 
         this.soapUtil = new KtfSoapUtil(property);
         this.endpoint = new KtfEndpoint(property);
@@ -57,10 +56,9 @@ public class KtfClientHandler extends HttpClientHandler {
      * TODO : 이통사로 Http 요청을 보내는 경우 예외 발생 시 NACK 전송을 위해서 return; 이 들어간 부분이 있음.
      *        예외 처리를 해당 메서드 내부에서 잡아야 하는 이유가 있는지.
      *        Aspect 사용하여 예외 처리할 때 발생하는 문제가 뭐가 있을지 검토.
-     *
      */
     @Override
-    protected void doSubmit(InboundMessage inboundMessage) throws Exception {
+    protected void doSubmit(InboundMessage inboundMessage) throws MCMPSoapRenderException, NAckException {
         String soapMessageToString = soapUtil.createSOAPMessage(inboundMessage);
         MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
         String umsMsgId = messageDelivery.getUmsMsgId();
@@ -83,18 +81,19 @@ public class KtfClientHandler extends HttpClientHandler {
             KtfResMessage ktfResMessage = new KtfResMessage(localPart);
             ktfResMessage.fromXml(xml);
 
+            String messageId = ktfResMessage.getMessageId();
             String statusCode = ktfResMessage.getStatusCode();
             String statusText = ktfResMessage.getStatusText();
-            messageDelivery.setDstMsgId(ktfResMessage.getMessageId());
+            messageDelivery.setDstMsgId(messageId);
 
             NAckType nAckType = KtfUtil.getNAckTypeBySubmitAckStatusCode(statusCode);
             if (nAckType.equals(NAckType.ACK)) {
+                ktfMMSReportUtil.prepareToSubmitAck(messageDelivery, ktfResMessage);
                 MessageDelivery cloneDelivery = (MessageDelivery) messageDelivery.clone();
-
                 switch (statusCode) {
                     case KtfProtocol.KTF_SUBMIT_ACK_SUCCESS_RESULT:
                         log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck of message[{}] from KTF", cloneDelivery);
-                        persistenceManager.saveMessageByUmsMsgId(ktfResMessage.getMessageId(), cloneDelivery);
+                        deliveryStorage.put(messageId, cloneDelivery);
                         break;
 
                     default:
@@ -103,8 +102,8 @@ public class KtfClientHandler extends HttpClientHandler {
                 }
 
                 MrReport mrReport = new MrReport(DeliveryType.SUBMIT_ACK, cloneDelivery);
-                reportQueue.add(mrReport);
-                log.info("[SUBMIT-ACK] Successfully add Report[{}] in reportQueue", ktfResMessage);
+                reportQueueStorage.add(mrReport);
+                log.info("[REPORT-QUEUE] Successfully add SubmitAck[{}] in reportQueue", ktfResMessage);
 
                 inboundMessage.basicAck();
                 return;

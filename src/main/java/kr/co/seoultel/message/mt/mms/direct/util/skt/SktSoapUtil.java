@@ -6,7 +6,7 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.util.ByteArrayDataSource;
 import jakarta.xml.soap.*;
 import kr.co.seoultel.message.core.dto.MessageDelivery;
-import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapCreateException;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.skt.SktSubmitReqMessage;
 import kr.co.seoultel.message.mt.mms.core.util.*;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
@@ -36,121 +36,125 @@ public class SktSoapUtil extends SoapUtil {
     protected final AutoIncreaseNumberDistributor distributor = new AutoIncreaseNumberDistributor(5);
 
     @Override
-    public String createSOAPMessage(InboundMessage inboundMessage) throws Exception {
-        MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
+    public String createSOAPMessage(InboundMessage inboundMessage) throws MCMPSoapRenderException {
+        try {
+            MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
 
-        long randomNumber = (long) (Math.random() * (10_000_000_000L - 1_000_000_000) + 1_000_000_000);   //10자리 난수
+            long randomNumber = (long) (Math.random() * (10_000_000_000L - 1_000_000_000) + 1_000_000_000);   //10자리 난수
 
-        /*  Declare variables, use for render soap message  */
-        boolean isFallback = FallbackUtil.isFallback(messageDelivery);
-        String umsMsgId = messageDelivery.getUmsMsgId();
-        String dstMsgId = FallbackUtil.getDstMsgId(messageDelivery);
-        String groupCode = messageDelivery.getGroupCode();
-        String receiver = messageDelivery.getReceiver();
-        String callback = messageDelivery.getCallback();
-        String subject = FallbackUtil.getSubject(messageDelivery);
-        String message = FallbackUtil.getMessage(messageDelivery);
-        String originCode = FallbackUtil.getOriginCode(messageDelivery);
-        List<String> imageIds = FallbackUtil.getMediaFiles(messageDelivery);
-
-
-        // String startCid = getRandomContentID();
-        String smilCID = getContentID(0, randomNumber);
-        List<String> imageCIDList = IntStream.range(1, imageIds.size()).mapToObj((idx) -> SktSoapUtil.getContentID(idx, randomNumber)).collect(Collectors.toList());
-        String messageCID = getContentID(imageIds.size() + 1, randomNumber);
-
-        boolean hasImage = !imageIds.isEmpty();
-        boolean hasMessage = !ValidateUtil.isNullOrBlankStr(message);
-
-        SktSubmitReqMessage sktSoapMessage = SktSubmitReqMessage.builder()
-                                                                .tid(String.format("%05d", distributor.get()))
-                                                                .vasId(property.getVasId())
-                                                                .vaspId(property.getVaspId())
-                                                                .cpid(property.getCpidInfo().getCpid())
-                                                                .callback(callback)
-                                                                .receiver(receiver)
-                                                                .subject(subject)
-                                                                .message(message)
-                                                                .originCode(originCode)
-                                                                .smilCID(smilCID)
-                                                                .build();
-
-        SOAPMessage soapMessage = sktSoapMessage.toSOAPMessage();
-
-        /*  Create MimeMultipart And add MimeBodyPart(Smil, Xhtml) and AttachedPart  */
-        MimeMultipart mimeMultipart = new MimeMultipart("related");
-
-        /* create Smil Document and convert to String.class */
-        String smilString = ConvertorUtil.convertDocumentToString(true, getSmilDocument(message, imageIds, messageCID, imageCIDList));
-
-        /* convert SmilString to MimeBodyPart and add SmilMimeBodyPart to MimeMultipart */
-        MimeBodyPart smilMimeBodyPart = getSmilMimeBodyPart(smilString, smilCID);
-        mimeMultipart.addBodyPart(smilMimeBodyPart);
-
-        /* create Xhtml Document and convert to String.class */
-        String smilXhtmlString = ConvertorUtil.convertDocumentToString(true, getSmilXhtmlDocument(message, imageIds, messageCID, imageCIDList));
-
-        /* convert XhtmlString to MimeBodyPart and add XhtmlMimeBodyPart to MimeMultipart */
-        MimeBodyPart xmilXhtmlMimeBodyPart = getSmilXhtmlMimeBodyPart(smilXhtmlString, messageCID);
-        mimeMultipart.addBodyPart(xmilXhtmlMimeBodyPart);
-
-        for (String imageId : imageIds) {
-            // String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
-            // byte[] encodedImageBytes = Base64.getEncoder().encodeToString(ImageUtil.getImageBytes(imagePath)).getBytes(EUC_KR);
-            // int encodedImageLength = encodedImageBytes.length;
-
-            /* TOOD : ENCODED IMAGE의 SIZE에 대한 검측이 있어야하는가 ? */
-            // if (encodedImageLength > Constants.STANDARD_IMAGE_MAX_SIZE) {
-            //     throw new AttachedImageSizeOverException(inboundMessage);
-            // }
-
-            String imageCID = imageCIDList.get(imageIds.indexOf(imageId));
-
-            // TODO : 지워야됨;
-            byte[] encodedImageBytes = new byte[]{1,0,0,1,0,1};
-            int encodedImageLength = encodedImageBytes.length;
+            /*  Declare variables, use for render soap message  */
+            boolean isFallback = FallbackUtil.isFallback(messageDelivery);
+            String umsMsgId = messageDelivery.getUmsMsgId();
+            String dstMsgId = FallbackUtil.getDstMsgId(messageDelivery);
+            String groupCode = messageDelivery.getGroupCode();
+            String receiver = messageDelivery.getReceiver();
+            String callback = messageDelivery.getCallback();
+            String subject = FallbackUtil.getSubject(messageDelivery);
+            String message = FallbackUtil.getMessage(messageDelivery);
+            String originCode = FallbackUtil.getOriginCode(messageDelivery);
+            List<String> imageIds = FallbackUtil.getMediaFiles(messageDelivery);
 
 
-            MimeBodyPart imageMimeBodyPart = new MimeBodyPart();
-            imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
+            // String startCid = getRandomContentID();
+            String smilCID = getContentID(0, randomNumber);
+            List<String> imageCIDList = IntStream.range(1, imageIds.size()).mapToObj((idx) -> SktSoapUtil.getContentID(idx, randomNumber)).collect(Collectors.toList());
+            String messageCID = getContentID(imageIds.size() + 1, randomNumber);
 
-            imageMimeBodyPart.setHeader("Content-ID", String.format("<%s>", imageCID));
-            imageMimeBodyPart.setHeader("Content-Length", String.valueOf(encodedImageLength));
-            imageMimeBodyPart.setHeader("Content-Disposition", String.format("attachment; filename=\"%s.jpeg\"", imageId)); // TODO : filename 체크
-            imageMimeBodyPart.setHeader("X-SKT-Content-Usage", "0");
-            imageMimeBodyPart.setHeader("X-SKT-CIDSID", getCIDSID());
-            imageMimeBodyPart.setHeader("X-SKT-Service-Type", "0");
+            boolean hasImage = !imageIds.isEmpty();
+            boolean hasMessage = !ValidateUtil.isNullOrBlankStr(message);
 
-            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(encodedImageBytes, "image/jpeg");
+            SktSubmitReqMessage sktSoapMessage = SktSubmitReqMessage.builder()
+                                                                    .tid(String.format("%05d", distributor.get()))
+                                                                    .vasId(property.getVasId())
+                                                                    .vaspId(property.getVaspId())
+                                                                    .cpid(property.getCpidInfo().getCpid())
+                                                                    .callback(callback)
+                                                                    .receiver(receiver)
+                                                                    .subject(subject)
+                                                                    .message(message)
+                                                                    .originCode(originCode)
+                                                                    .smilCID(smilCID)
+                                                                    .build();
+
+            SOAPMessage soapMessage = sktSoapMessage.toSOAPMessage();
+
+            /*  Create MimeMultipart And add MimeBodyPart(Smil, Xhtml) and AttachedPart  */
+            MimeMultipart mimeMultipart = new MimeMultipart("related");
+
+            /* create Smil Document and convert to String.class */
+            String smilString = ConvertorUtil.convertDocumentToString(true, getSmilDocument(message, imageIds, messageCID, imageCIDList));
+
+            /* convert SmilString to MimeBodyPart and add SmilMimeBodyPart to MimeMultipart */
+            MimeBodyPart smilMimeBodyPart = getSmilMimeBodyPart(smilString, smilCID);
+            mimeMultipart.addBodyPart(smilMimeBodyPart);
+
+            /* create Xhtml Document and convert to String.class */
+            String smilXhtmlString = ConvertorUtil.convertDocumentToString(true, getSmilXhtmlDocument(message, imageIds, messageCID, imageCIDList));
+
+            /* convert XhtmlString to MimeBodyPart and add XhtmlMimeBodyPart to MimeMultipart */
+            MimeBodyPart xmilXhtmlMimeBodyPart = getSmilXhtmlMimeBodyPart(smilXhtmlString, messageCID);
+            mimeMultipart.addBodyPart(xmilXhtmlMimeBodyPart);
+
+            for (String imageId : imageIds) {
+                // String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
+                // byte[] encodedImageBytes = Base64.getEncoder().encodeToString(ImageUtil.getImageBytes(imagePath)).getBytes(EUC_KR);
+                // int encodedImageLength = encodedImageBytes.length;
+
+                /* TOOD : ENCODED IMAGE의 SIZE에 대한 검측이 있어야하는가 ? */
+                // if (encodedImageLength > Constants.STANDARD_IMAGE_MAX_SIZE) {
+                //     throw new AttachedImageSizeOverException(inboundMessage);
+                // }
+
+                String imageCID = imageCIDList.get(imageIds.indexOf(imageId));
+
+                // TODO : 지워야됨;
+                byte[] encodedImageBytes = new byte[]{1,0,0,1,0,1};
+                int encodedImageLength = encodedImageBytes.length;
+
+
+                MimeBodyPart imageMimeBodyPart = new MimeBodyPart();
+                imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
+
+                imageMimeBodyPart.setHeader("Content-ID", String.format("<%s>", imageCID));
+                imageMimeBodyPart.setHeader("Content-Length", String.valueOf(encodedImageLength));
+                imageMimeBodyPart.setHeader("Content-Disposition", String.format("attachment; filename=\"%s.jpeg\"", imageId)); // TODO : filename 체크
+                imageMimeBodyPart.setHeader("X-SKT-Content-Usage", "0");
+                imageMimeBodyPart.setHeader("X-SKT-CIDSID", getCIDSID());
+                imageMimeBodyPart.setHeader("X-SKT-Service-Type", "0");
+
+                ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(encodedImageBytes, "image/jpeg");
+                DataHandler dataHandler = new DataHandler(byteArrayDataSource);
+
+                imageMimeBodyPart.setDataHandler(dataHandler);
+                mimeMultipart.addBodyPart(imageMimeBodyPart);
+            }
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            mimeMultipart.writeTo(baos);
+
+            // baos 를 인코딩
+            byte[] bytes = baos.toString(StandardCharsets.UTF_8).getBytes("euc-kr");
+
+            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, mimeMultipart.getContentType());
             DataHandler dataHandler = new DataHandler(byteArrayDataSource);
 
-            imageMimeBodyPart.setDataHandler(dataHandler);
-            mimeMultipart.addBodyPart(imageMimeBodyPart);
+            // Attachment
+            AttachmentPart attachmentPart = soapMessage.createAttachmentPart(dataHandler);
+            soapMessage.addAttachmentPart(attachmentPart);
+            soapMessage.saveChanges();
+
+            // soapMessage to String
+            baos.reset();
+            soapMessage.writeTo(baos);
+            baos.close();
+
+            return baos.toString("euc-kr");
+        } catch (Exception e) {
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        mimeMultipart.writeTo(baos);
-
-        // baos 를 인코딩
-        byte[] bytes = baos.toString(StandardCharsets.UTF_8).getBytes("euc-kr");
-
-        ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, mimeMultipart.getContentType());
-        DataHandler dataHandler = new DataHandler(byteArrayDataSource);
-
-        // Attachment
-        AttachmentPart attachmentPart = soapMessage.createAttachmentPart(dataHandler);
-        soapMessage.addAttachmentPart(attachmentPart);
-        soapMessage.saveChanges();
-
-        // soapMessage to String
-        baos.reset();
-        soapMessage.writeTo(baos);
-        baos.close();
-
-        return baos.toString("euc-kr");
     }
 
-    public static MimeBodyPart getSmilMimeBodyPart(String smilToString, String smilCID) throws MCMPSoapCreateException {
+    public static MimeBodyPart getSmilMimeBodyPart(String smilToString, String smilCID) throws MCMPSoapRenderException {
         try {
             int length = smilToString.getBytes(EUC_KR).length;
 
@@ -169,11 +173,11 @@ public class SktSoapUtil extends SoapUtil {
 
             return smilMimeBodyPart;
         } catch (Exception e) {
-            throw new MCMPSoapCreateException();
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
     }
 
-    public static MimeBodyPart getSmilXhtmlMimeBodyPart(String smilXhtmlToString, String messageCID) throws MCMPSoapCreateException {
+    public static MimeBodyPart getSmilXhtmlMimeBodyPart(String smilXhtmlToString, String messageCID) throws MCMPSoapRenderException {
         try {
             int length = smilXhtmlToString.getBytes(EUC_KR).length;
 
@@ -191,11 +195,11 @@ public class SktSoapUtil extends SoapUtil {
 
             return smilXhtmlMimeBodyPart;
         } catch (Exception e) {
-            throw new MCMPSoapCreateException();
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
     }
 
-    public static Document getSmilDocument(String message, List<String> imageIds, String messageCID, List<String> imageCIDList) throws MCMPSoapCreateException {
+    public static Document getSmilDocument(String message, List<String> imageIds, String messageCID, List<String> imageCIDList) throws MCMPSoapRenderException {
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.newDocument();
@@ -274,12 +278,12 @@ public class SktSoapUtil extends SoapUtil {
 
             return document;
         } catch (Exception e) {
-            throw new MCMPSoapCreateException();
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
     }
 
 
-    public static Document getSmilXhtmlDocument(String message, List<String> imageIds, String messageCID, List<String> imageCIDList) throws MCMPSoapCreateException {
+    public static Document getSmilXhtmlDocument(String message, List<String> imageIds, String messageCID, List<String> imageCIDList) throws MCMPSoapRenderException {
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.newDocument();
@@ -318,7 +322,7 @@ public class SktSoapUtil extends SoapUtil {
 
             return document;
         } catch (Exception e) {
-            throw new MCMPSoapCreateException();
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
     }
 

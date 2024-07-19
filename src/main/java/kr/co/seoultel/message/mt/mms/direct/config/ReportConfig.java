@@ -14,7 +14,8 @@ public class ReportConfig extends kr.co.seoultel.message.mt.mms.core_module.comm
     }
 
     @Bean
-    public MrReportService mrReportService() {
+    public MrReportService mrReportService(AbstractConsumer consumer, RabbitMQConfig rabbitMQConfig) {
         return new MrReportService(consumer, rabbitMQConfig);
     }
+
 }

@@ -18,7 +18,7 @@ import java.util.*;
 
 public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
     @Override
-    protected void prepareToSubmitAck(MessageDelivery messageDelivery, LgtSoapMessage lgtSoapMessage) {
+    public void prepareToSubmitAck(MessageDelivery messageDelivery, LgtSoapMessage lgtSoapMessage) {
         LgtSubmitResMessage lgtSubmitResMessage = (LgtSubmitResMessage) lgtSoapMessage;
 
         setDeliveryTypeAndStateAtSubmitAck(lgtSubmitResMessage.isSuccess(), messageDelivery);
@@ -26,7 +26,7 @@ public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
     }
 
     @Override
-    protected Map<String, Object> getSubmitAckResult(MessageDelivery messageDelivery, LgtSoapMessage lgtSoapMessage) {
+    public Map<String, Object> getSubmitAckResult(MessageDelivery messageDelivery, LgtSoapMessage lgtSoapMessage) {
         LgtSubmitResMessage lgtSubmitResMessage = (LgtSubmitResMessage) lgtSoapMessage;
         Map<String, Object> result = Objects.requireNonNullElse(FallbackUtil.getResult(messageDelivery), new LinkedHashMap<>());
 

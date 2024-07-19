@@ -1,5 +1,7 @@
 package kr.co.seoultel.message.mt.mms.direct.config;
 
+import kr.co.seoultel.message.mt.mms.core_module.modules.redis.RedisConnectionChecker;
+import kr.co.seoultel.message.mt.mms.core_module.modules.redis.RedisService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -82,6 +84,11 @@ public class RedisConfig extends kr.co.seoultel.message.mt.mms.core_module.commo
     @Bean
     public RedisService redisService(RedisTemplate<String, Object> redisTemplate) {
         return new RedisService(redisTemplate);
+    }
+
+    @Bean
+    public RedisConnectionChecker redisConnectionChecker(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisConnectionChecker(redisConnectionFactory);
     }
 
 }

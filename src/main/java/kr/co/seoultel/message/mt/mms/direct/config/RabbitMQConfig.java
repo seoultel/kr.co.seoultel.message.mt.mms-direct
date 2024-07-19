@@ -1,12 +1,16 @@
 package kr.co.seoultel.message.mt.mms.direct.config;
 
+import kr.co.seoultel.message.mt.mms.direct.modules.MessageConsumer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.Connection;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.Executors;
 
 
 /* RABBIT-MQ 관련 상수 및 Bean */
@@ -45,6 +50,9 @@ public class RabbitMQConfig extends kr.co.seoultel.message.mt.mms.core_module.co
         cachingConnectionFactory.setUsername(primaryUsername);
         cachingConnectionFactory.setPassword(primaryPassword);
 
+        // consumer thread count setting
+        // cachingConnectionFactory.setExecutor(Executors.newFixedThreadPool(1));
+
         //연결이 유효한지 체크
         Connection connection = cachingConnectionFactory.createConnection();
         connection.close();
@@ -52,28 +60,6 @@ public class RabbitMQConfig extends kr.co.seoultel.message.mt.mms.core_module.co
         return cachingConnectionFactory;
     }
 
-
-//    public Channel getNonClusteredChannel(CachingConnectionFactory cachingConnectionFactory) {
-//        try {
-//            com.rabbitmq.client.Connection conn = cachingConnectionFactory.getRabbitConnectionFactory().newConnection();
-//            return conn.createChannel();
-//        } catch (IOException | TimeoutException e) {
-//            return null;
-//        }
-//    }
-//
-//    public Channel getClusteredChannel(CachingConnectionFactory cachingConnectionFactory) {
-//        org.springframework.amqp.rabbit.connection.Connection amqpConn = cachingConnectionFactory.getPublisherConnectionFactory().createConnection();
-//        return amqpConn.createChannel(false);
-//    }
-
-    @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(){
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
-        factory.setPrefetchCount(1);
-        return factory;
-    }
 
     @Bean
     public CachingConnectionFactory connectionFactory2() {

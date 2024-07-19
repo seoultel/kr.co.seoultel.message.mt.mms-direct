@@ -1,7 +1,7 @@
 package kr.co.seoultel.message.mt.mms.direct;
 
 
-import kr.co.seoultel.message.mt.mms.core_module.modules.PersistenceManager;
+
 import kr.co.seoultel.message.mt.mms.direct.modules.HeartBeatClient;
 import kr.co.seoultel.message.mt.mms.direct.modules.MessageConsumer;
 import kr.co.seoultel.message.mt.mms.direct.modules.ReportProcessor;
@@ -18,8 +18,7 @@ public class ApplicationShutdownTask implements ApplicationListener<ContextClose
 
     private final HeartBeatClient heartBeatClient;
     private final MessageConsumer messageConsumer;
-    //
-    private final PersistenceManager persistenceManager;
+
     private final ReportProcessor reportProcessor;
 
 
@@ -32,7 +31,6 @@ public class ApplicationShutdownTask implements ApplicationListener<ContextClose
         heartBeatClient.destroy();
         messageConsumer.destroy();
 
-        persistenceManager.destroy();
         reportProcessor.destroy();
     }
 }

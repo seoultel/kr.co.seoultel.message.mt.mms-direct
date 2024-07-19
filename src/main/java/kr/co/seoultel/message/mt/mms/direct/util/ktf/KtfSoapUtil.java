@@ -1,7 +1,6 @@
 package kr.co.seoultel.message.mt.mms.direct.util.ktf;
 
 import jakarta.activation.DataHandler;
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.util.ByteArrayDataSource;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.nio.charset.Charset;
 
 import kr.co.seoultel.message.core.dto.MessageDelivery;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfSubmitReqMessage;
 import kr.co.seoultel.message.mt.mms.core.util.ValidateUtil;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
@@ -36,46 +36,47 @@ public class KtfSoapUtil extends SoapUtil {
 
 
     @Override
-    public String createSOAPMessage(InboundMessage inboundMessage) throws Exception {
-        MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
+    public String createSOAPMessage(InboundMessage inboundMessage) throws MCMPSoapRenderException {
+        try {
+            MessageDelivery messageDelivery = inboundMessage.getMessageDelivery();
 
-        /*  Declare variables, use for render soap message  */
-        String groupCode = messageDelivery.getGroupCode();
+            /*  Declare variables, use for render soap message  */
+            String groupCode = messageDelivery.getGroupCode();
 
-        String umsMsgId = messageDelivery.getUmsMsgId();
-        String receiver = messageDelivery.getReceiver();
-        String callback = messageDelivery.getCallback();
-        String message = FallbackUtil.getMessage(messageDelivery);
-        String subject = FallbackUtil.getSubject(messageDelivery);
-        String originCode = FallbackUtil.getOriginCode(messageDelivery);
-        List<String> imageIds = FallbackUtil.getMediaFiles(messageDelivery);
+            String umsMsgId = messageDelivery.getUmsMsgId();
+            String receiver = messageDelivery.getReceiver();
+            String callback = messageDelivery.getCallback();
+            String message = FallbackUtil.getMessage(messageDelivery);
+            String subject = FallbackUtil.getSubject(messageDelivery);
+            String originCode = FallbackUtil.getOriginCode(messageDelivery);
+            List<String> imageIds = FallbackUtil.getMediaFiles(messageDelivery);
 
-        boolean hasImage = !imageIds.isEmpty();
-        boolean hasMessage = !ValidateUtil.isNullOrBlankStr(message);
+            boolean hasImage = !imageIds.isEmpty();
+            boolean hasMessage = !ValidateUtil.isNullOrBlankStr(message);
 
-        KtfSubmitReqMessage ktfSoapMessage = KtfSubmitReqMessage.builder()
-                .tid(KtfUtil.getRandomTransactionalId(umsMsgId))
-                .vasId(property.getVasId())
-                .vaspId(property.getVaspId())
-                .cpid(property.getCpidInfo().getCpid())
-                .callback(callback)
-                .receiver(receiver)
-                .subject(subject)
-                .resellerCode(originCode)
-                .build();
+            KtfSubmitReqMessage ktfSoapMessage = KtfSubmitReqMessage.builder()
+                    .tid(KtfUtil.getRandomTransactionalId(umsMsgId))
+                    .vasId(property.getVasId())
+                    .vaspId(property.getVaspId())
+                    .cpid(property.getCpidInfo().getCpid())
+                    .callback(callback)
+                    .receiver(receiver)
+                    .subject(subject)
+                    .resellerCode(originCode)
+                    .build();
 
 
-        /*  Create MimeParts  */
-        byte[] bytes;
-        MimeMultipart mimeMultipart = new MimeMultipart("related");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            /*  Create MimeParts  */
+            byte[] bytes;
+            MimeMultipart mimeMultipart = new MimeMultipart("related");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        SOAPMessage soapMessage = ktfSoapMessage.toSOAPMessage();
-        if (hasImage) {
-            MimeBodyPart textMimeBodyPart = createTextMimeMultipart(mimeMultipart, message, imageIds);
-            mimeMultipart.addBodyPart(textMimeBodyPart);
+            SOAPMessage soapMessage = ktfSoapMessage.toSOAPMessage();
+            if (hasImage) {
+                MimeBodyPart textMimeBodyPart = createTextMimeMultipart(mimeMultipart, message, imageIds);
+                mimeMultipart.addBodyPart(textMimeBodyPart);
 
-            for (String imageId : imageIds) {
+                for (String imageId : imageIds) {
 //                String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
 //                byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
 //                int mediaFileSize = imageBytes.length;
@@ -83,78 +84,90 @@ public class KtfSoapUtil extends SoapUtil {
 //                    throw new AttachedImageSizeOverException(inboundMessage);
 //                }
 
-                // TODO : 지워야됨;
-                byte[] imageBytes = new byte[]{1,0,0,1,0,1};
+                    // TODO : 지워야됨;
+                    byte[] imageBytes = new byte[]{1,0,0,1,0,1};
 
-                // String fileName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
-                MimeBodyPart imageMimeBodyPart = KtfSoapUtil.createImageMimeMultipart(imageBytes);
-                mimeMultipart.addBodyPart(imageMimeBodyPart);
+                    // String fileName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
+                    MimeBodyPart imageMimeBodyPart = KtfSoapUtil.createImageMimeMultipart(imageBytes);
+                    mimeMultipart.addBodyPart(imageMimeBodyPart);
+                }
+
+                mimeMultipart.writeTo(baos);
+                bytes = baos.toString(StandardCharsets.UTF_8).getBytes(Charset.forName(EUC_KR));
+            } else {
+                bytes = message.getBytes(Charset.forName(EUC_KR));
             }
 
-            mimeMultipart.writeTo(baos);
-            bytes = baos.toString(StandardCharsets.UTF_8).getBytes(Charset.forName(EUC_KR));
-        } else {
-            bytes = message.getBytes(Charset.forName(EUC_KR));
+            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, mimeMultipart.getContentType());
+            DataHandler dataHandler = new DataHandler(byteArrayDataSource);
+
+            AttachmentPart attachmentPart = soapMessage.createAttachmentPart(dataHandler);
+            if (!hasImage) {
+                attachmentPart.setMimeHeader("Content-Type", "text/plain; charset=\"euc-kr\"");
+                attachmentPart.setMimeHeader("Content-ID", "<text/plain>");
+                attachmentPart.setMimeHeader("Content-Transfer-Encoding", "8bit");
+            }
+
+            soapMessage.addAttachmentPart(attachmentPart);
+            soapMessage.saveChanges();
+
+            baos.reset();
+            soapMessage.writeTo(baos);
+
+            return baos.toString();
+        } catch (Exception e) {
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
-
-        ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, mimeMultipart.getContentType());
-        DataHandler dataHandler = new DataHandler(byteArrayDataSource);
-
-        AttachmentPart attachmentPart = soapMessage.createAttachmentPart(dataHandler);
-        if (!hasImage) {
-            attachmentPart.setMimeHeader("Content-Type", "text/plain; charset=\"euc-kr\"");
-            attachmentPart.setMimeHeader("Content-ID", "<text/plain>");
-            attachmentPart.setMimeHeader("Content-Transfer-Encoding", "8bit");
-        }
-
-        soapMessage.addAttachmentPart(attachmentPart);
-        soapMessage.saveChanges();
-
-        baos.reset();
-        soapMessage.writeTo(baos);
-
-        return baos.toString();
     }
 
 
-    public static MimeBodyPart createTextMimeMultipart(MimeMultipart mimeMultipart, String message, List<String> imageNames) throws MessagingException {
-        MimeBodyPart textMimeBodyPart = new MimeBodyPart();
+    public static MimeBodyPart createTextMimeMultipart(MimeMultipart mimeMultipart, String message, List<String> imageNames) throws MCMPSoapRenderException {
+        try {
+            MimeBodyPart textMimeBodyPart = new MimeBodyPart();
 
-        /* create HtmlTag of message and images */
-        StringBuilder sb = new StringBuilder("<HTML><HEAD></HEAD></HTML>");
-        for (String imageName : imageNames) {
-            sb.append(String.format("<IMG SRC=\"%s\">", imageName));
+            /* create HtmlTag of message and images */
+            StringBuilder sb = new StringBuilder("<HTML><HEAD></HEAD></HTML>");
+            for (String imageName : imageNames) {
+                sb.append(String.format("<IMG SRC=\"%s\">", imageName));
+            }
+
+            sb.append(new String(message.getBytes(Charset.forName(EUC_KR))));
+            sb.append("</BODY></HTML>");
+
+            String htmlTag = sb.toString();
+
+            /* set content  */
+            textMimeBodyPart.setContent(htmlTag, "text/plain;charset=euc-kr");
+
+            /* set header to MimeBodyPart */
+            textMimeBodyPart.setHeader("Content-Type", "text/html; charset=euc-kr");
+            textMimeBodyPart.setHeader("Content-ID", "<text/html>");
+            textMimeBodyPart.setHeader("Content-Transfer-Encoding", "8bit");
+
+            return textMimeBodyPart;
+        } catch (Exception e) {
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
 
-        sb.append(new String(message.getBytes(Charset.forName(EUC_KR))));
-        sb.append("</BODY></HTML>");
-
-        String htmlTag = sb.toString();
-
-        /* set content  */
-        textMimeBodyPart.setContent(htmlTag, "text/plain;charset=euc-kr");
-
-        /* set header to MimeBodyPart */
-        textMimeBodyPart.setHeader("Content-Type", "text/html; charset=euc-kr");
-        textMimeBodyPart.setHeader("Content-ID", "<text/html>");
-        textMimeBodyPart.setHeader("Content-Transfer-Encoding", "8bit");
-
-        return textMimeBodyPart;
     }
 
-    private static MimeBodyPart createImageMimeMultipart(byte[] imageBytes) throws MessagingException {
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
+    private static MimeBodyPart createImageMimeMultipart(byte[] imageBytes) throws MCMPSoapRenderException {
+        try {
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
 
-        /* set header to MimeBodyPart */
-        mimeBodyPart.setHeader("Content-ID", "<arreo_jpeg.jpeg>");
-        mimeBodyPart.setHeader("Content-Type", "image/jpeg");
-        mimeBodyPart.setHeader("Content-Disposition", "attachment; filename=\"arreo_jpeg.jpeg\"");
-        mimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
+            /* set header to MimeBodyPart */
+            mimeBodyPart.setHeader("Content-ID", "<arreo_jpeg.jpeg>");
+            mimeBodyPart.setHeader("Content-Type", "image/jpeg");
+            mimeBodyPart.setHeader("Content-Disposition", "attachment; filename=\"arreo_jpeg.jpeg\"");
+            mimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
 
-        ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(imageBytes, "image/jpeg");
-        mimeBodyPart.setDataHandler(new DataHandler(byteArrayDataSource));
+            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(imageBytes, "image/jpeg");
+            mimeBodyPart.setDataHandler(new DataHandler(byteArrayDataSource));
 
-        return mimeBodyPart;
+            return mimeBodyPart;
+        } catch (Exception e) {
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
+        }
     }
 
 

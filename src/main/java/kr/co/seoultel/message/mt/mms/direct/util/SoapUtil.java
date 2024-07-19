@@ -1,12 +1,12 @@
 package kr.co.seoultel.message.mt.mms.direct.util;
 
 import jakarta.xml.soap.*;
+import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 public abstract class SoapUtil {
 
@@ -20,6 +20,7 @@ public abstract class SoapUtil {
 
     static {
         try {
+            
             documentBuilderFactory = DocumentBuilderFactory.newInstance();
             messageFactory = MessageFactory.newInstance();
         } catch (SOAPException e) {
@@ -27,17 +28,21 @@ public abstract class SoapUtil {
         }
     }
 
-    protected abstract String createSOAPMessage(InboundMessage inboundMessage) throws Exception;
+    protected abstract String createSOAPMessage(InboundMessage inboundMessage) throws MCMPSoapRenderException;
 
 
-    public static String getSOAPMessageMM7LocalPart(String xml) throws SOAPException, IOException {
-        int startBodyIndex = xml.indexOf("<env:Body>");
-        int endBodyIndex = xml.indexOf("</env:Body>");
+    public static String getSOAPMessageMM7LocalPart(String xml) throws MCMPSoapRenderException {
+        try {
+            int startBodyIndex = xml.indexOf("<env:Body>");
+            int endBodyIndex = xml.indexOf("</env:Body>");
 
-        String body = xml.substring(startBodyIndex, endBodyIndex);
-        String localPart = body.substring(body.indexOf("<mm7:") + 5, body.indexOf(" xmlns"));
+            String body = xml.substring(startBodyIndex, endBodyIndex);
+            String localPart = body.substring(body.indexOf("<mm7:") + 5, body.indexOf(" xmlns"));
 
-        return localPart;
+            return localPart;
+        } catch (Exception e) {
+            throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
+        }
     }
 
     public String getHttpBoundary(String soapMessageToString) {

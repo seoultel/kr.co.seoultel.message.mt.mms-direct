@@ -43,25 +43,40 @@ sender:
   is-dummy: on
 
   http:
+    endpoint:
+      ip: 127.0.0.1
+      port: 10001
+
     bpid: null
     vas-id: "21"
     vasp-id: "1"
 
     cpids:
       - cpid: "1528801080"
-        tps: 5
+        tps: 10
+      - cpid: "1528801081"
+        tps: 15
+      - cpid: "1528801082"
+        tps: 7
+      - cpid: "1528801083"
+        tps: 20
+      - cpid: "1528801084"
+        tps: 13
 
-    endpoint:
-      ip: 127.0.0.1
-      port: 10001
 
 
-  data-vault:
-    paths:
-      persistence: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/persistence.dvt
-      message-history: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/messageHistory.dvt
-      republish: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/republish.dvt
-      report: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/dvt/skt/report.dvt
+  storage:
+    persistence:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/skt/persistence.storage
+
+    history:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/skt/history.storage
+
+    republish:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/skt/republish.storage
+
+    report:
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/skt/report.storage
 
 
 mt:
