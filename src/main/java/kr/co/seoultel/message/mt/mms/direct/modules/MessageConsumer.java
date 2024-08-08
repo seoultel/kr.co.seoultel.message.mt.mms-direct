@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -42,7 +43,6 @@ public class MessageConsumer extends AbstractConsumer {
 
     private final CachingConnectionFactory cachingConnectionFactory;
     private final Distributable<WeightNode<HttpClient>> distributor;
-
 
 
     public MessageConsumer(RabbitMQConfig rabbitMQConfig, CachingConnectionFactory cachingConnectionFactory,
@@ -59,7 +59,14 @@ public class MessageConsumer extends AbstractConsumer {
 
     public void init() {
         createChannel();
+
+        Map<String, Object> arguments = Map.of();
+        declareExchange(BuiltinExchangeType.DIRECT);
+        declareQueue(arguments);
+        bindQueueByExchange(totalTps, true);
+
         doConsume();
+        HeartBeatClient.setHStatus(HeartBeatProtocol.HEART_SUCCESS);
     }
 
     @Override
@@ -178,8 +185,7 @@ public class MessageConsumer extends AbstractConsumer {
             }
 
             if (channel != null && channel.isOpen()) {
-                HeartBeatClient.setHStatus(HeartBeatProtocol.HEART_SUCCESS);
-                setChannel(channel);
+                this.channel = channel;
             }
         } catch (AlreadyClosedException | AmqpIOException | ConnectException e) {
             log.error("[DISCONNECTED TO RABBIT] FAILED TO GETTING RABBIT CHANNEL");
@@ -188,22 +194,6 @@ public class MessageConsumer extends AbstractConsumer {
         }
     }
 
-
-    public void setChannel(@NonNull Channel channel) {
-        try {
-            String mtQueueName = rabbitMqConfig.getMtQueue();
-            String mtExchangeName = rabbitMqConfig.getMtExchange();
-
-            channel.basicQos(totalTps);
-            channel.basicRecover(true);
-            channel.queueBind(mtQueueName, mtExchangeName, mtQueueName);
-            this.channel = channel;
-
-            log.info("[CONSUMER] Consumer's channel[channel-number : {}] is activated", channel.getChannelNumber());
-        } catch (IOException e) {
-            log.error("[IOException] Failed to create channel from RabbitMQ");
-        }
-    }
 
     @Override
     protected void closeChannel() {

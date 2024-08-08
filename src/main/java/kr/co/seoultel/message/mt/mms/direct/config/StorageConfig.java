@@ -6,18 +6,52 @@ import kr.co.seoultel.message.mt.mms.core.entity.MessageHistory;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
+import kr.co.seoultel.message.mt.mms.core_module.storage.fileIoHandler.CsvFileIOHandler;
+import kr.co.seoultel.message.mt.mms.core_module.utils.ImageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Slf4j
 @Configuration
 public class StorageConfig {
+
+    @Bean
+    public HashMapStorage<String, String> fileStorage(@Value("${file-server.image-download-path}") String rootFilePath) throws IOException {
+        HashMapStorage<String, String> fileStorage = new HashMapStorage<String, String>(rootFilePath);
+
+        fileStorage.createFileAnd().getSubDirectoryPaths().ifPresent((subDirectoryPaths) -> {
+            for (Path groupCodeDirectoryPath : subDirectoryPaths) {
+                String groupCode = String.valueOf(groupCodeDirectoryPath.getFileName());
+                Arrays.stream(Objects.requireNonNullElse(groupCodeDirectoryPath.toFile().listFiles(), new File[0]))
+                      .filter((file) -> ImageUtil.isUsableImageFile(file.getName()))
+                      .forEach((file) -> {
+                          String fileName = file.getName();
+                          String absoluteFilePath = file.getAbsolutePath();
+
+                          String imageName = ImageUtil.excludeExtension(fileName);
+                          String imageKey = ImageUtil.getImageKey(groupCode, imageName);
+
+                          fileStorage.put(imageKey, absoluteFilePath);
+                      });
+            }
+        });
+
+        fileStorage.setSynchronized(false);
+        return fileStorage;
+    }
 
     @Bean
     public HashMapStorage<String, MessageDelivery> deliveryStorage(@Value("${sender.storage.persistence.file-path}") String filePath) throws IOException {

@@ -6,11 +6,16 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.util.ByteArrayDataSource;
 import jakarta.xml.soap.*;
 import kr.co.seoultel.message.core.dto.MessageDelivery;
+import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.skt.SktSubmitReqMessage;
 import kr.co.seoultel.message.mt.mms.core.util.*;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.AttachedImageSizeOverException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
 import kr.co.seoultel.message.mt.mms.core_module.distributor.AutoIncreaseNumberDistributor;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
+import kr.co.seoultel.message.mt.mms.core_module.utils.ImageUtil;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 import kr.co.seoultel.message.mt.mms.direct.util.SoapUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +25,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,8 +35,8 @@ import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.EUC_K
 @Slf4j
 public class SktSoapUtil extends SoapUtil {
 
-    public SktSoapUtil(HttpClientProperty property) {
-        super(property);
+    public SktSoapUtil(HttpClientProperty property, HashMapStorage<String, String> fileStorage) {
+        super(property, fileStorage);
     }
 
     protected final AutoIncreaseNumberDistributor distributor = new AutoIncreaseNumberDistributor(5);
@@ -57,7 +63,8 @@ public class SktSoapUtil extends SoapUtil {
 
             // String startCid = getRandomContentID();
             String smilCID = getContentID(0, randomNumber);
-            List<String> imageCIDList = IntStream.range(1, imageIds.size()).mapToObj((idx) -> SktSoapUtil.getContentID(idx, randomNumber)).collect(Collectors.toList());
+            // List<String> imageCIDList = IntStream.range(0, 1 + imageIds.size()).mapToObj((idx) -> SktSoapUtil.getContentID(idx, randomNumber)).collect(Collectors.toUnmodifiableList());
+            List<String> imageCIDList = IntStream.rangeClosed(0, 1 + imageIds.size()).mapToObj((idx) -> SktSoapUtil.getContentID(idx, randomNumber)).collect(Collectors.toUnmodifiableList());
             String messageCID = getContentID(imageIds.size() + 1, randomNumber);
 
             boolean hasImage = !imageIds.isEmpty();
@@ -96,36 +103,33 @@ public class SktSoapUtil extends SoapUtil {
             mimeMultipart.addBodyPart(xmilXhtmlMimeBodyPart);
 
             for (String imageId : imageIds) {
-                // String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
-                // byte[] encodedImageBytes = Base64.getEncoder().encodeToString(ImageUtil.getImageBytes(imagePath)).getBytes(EUC_KR);
-                // int encodedImageLength = encodedImageBytes.length;
+                String imagePath = fileStorage.get(ImageUtil.getImageKey(groupCode, imageId));
+                byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
+                int imageLength = imageBytes.length;
 
                 /* TOOD : ENCODED IMAGE의 SIZE에 대한 검측이 있어야하는가 ? */
-                // if (encodedImageLength > Constants.STANDARD_IMAGE_MAX_SIZE) {
-                //     throw new AttachedImageSizeOverException(inboundMessage);
-                // }
-
+                if (imageLength > Constants.STANDARD_IMAGE_MAX_SIZE) {
+                    throw new AttachedImageSizeOverException(inboundMessage);
+                }
+                
                 String imageCID = imageCIDList.get(imageIds.indexOf(imageId));
 
-                // TODO : 지워야됨;
-                byte[] encodedImageBytes = new byte[]{1,0,0,1,0,1};
-                int encodedImageLength = encodedImageBytes.length;
-
-
                 MimeBodyPart imageMimeBodyPart = new MimeBodyPart();
-                imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
+
+                ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(imageBytes, "image/jpeg");
+                DataHandler dataHandler = new DataHandler(byteArrayDataSource);
+
+                imageMimeBodyPart.setDataHandler(dataHandler);
 
                 imageMimeBodyPart.setHeader("Content-ID", String.format("<%s>", imageCID));
-                imageMimeBodyPart.setHeader("Content-Length", String.valueOf(encodedImageLength));
-                imageMimeBodyPart.setHeader("Content-Disposition", String.format("attachment; filename=\"%s.jpeg\"", imageId)); // TODO : filename 체크
+                imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
+                imageMimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
+                imageMimeBodyPart.setHeader("Content-Disposition", String.format("attachment; filename=\"%s.jpeg\"", imageId));
                 imageMimeBodyPart.setHeader("X-SKT-Content-Usage", "0");
                 imageMimeBodyPart.setHeader("X-SKT-CIDSID", getCIDSID());
                 imageMimeBodyPart.setHeader("X-SKT-Service-Type", "0");
 
-                ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(encodedImageBytes, "image/jpeg");
-                DataHandler dataHandler = new DataHandler(byteArrayDataSource);
 
-                imageMimeBodyPart.setDataHandler(dataHandler);
                 mimeMultipart.addBodyPart(imageMimeBodyPart);
             }
 
@@ -147,7 +151,6 @@ public class SktSoapUtil extends SoapUtil {
             baos.reset();
             soapMessage.writeTo(baos);
             baos.close();
-
             return baos.toString("euc-kr");
         } catch (Exception e) {
             throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
@@ -224,7 +227,7 @@ public class SktSoapUtil extends SoapUtil {
             layout.appendChild(rootLayout);
 
             Element imageRegion = layout.getOwnerDocument().createElement("region");
-            imageRegion.setAttribute("id", "arreo_image");
+            imageRegion.setAttribute("id", "image");
             imageRegion.setAttribute("top", "0%");
             imageRegion.setAttribute("left", "0%");
             imageRegion.setAttribute("width", "100%");
@@ -232,14 +235,14 @@ public class SktSoapUtil extends SoapUtil {
             imageRegion.setAttribute("z-index", "0");
 
             Element textRegion = layout.getOwnerDocument().createElement("region");
-            textRegion.setAttribute("id", "arreo_text");
+            textRegion.setAttribute("id", "text");
             textRegion.setAttribute("top", "0%");
             textRegion.setAttribute("left", "0%");
             textRegion.setAttribute("width", "100%");
             textRegion.setAttribute("height", "100%");
             textRegion.setAttribute("z-index", "0");
 
-
+            rootLayout.appendChild(imageRegion);
             rootLayout.appendChild(textRegion);
 
             /* <body></body> */
@@ -250,21 +253,25 @@ public class SktSoapUtil extends SoapUtil {
             par.setAttribute("repeatCount", "indefinite");
             body.appendChild(par);
 
+            Element seq = body.getOwnerDocument().createElement("seq");
+            seq.setAttribute("repeatCount", "indefinite");
+
+            par.appendChild(seq);
 
             for (String imageId : imageIds) {
                 String contentId = imageCIDList.get(imageIds.indexOf(imageId));
 
                 Element image = par.getOwnerDocument().createElement("img");
-                image.setAttribute("id", imageId);
-                image.setAttribute("region", "arreo_image");
+                image.setAttribute("id", String.format("%s.jpeg", imageId));
+                image.setAttribute("region", "image");
                 image.setAttribute("src", contentId);
 
-                par.appendChild(image);
+                seq.appendChild(image);
             }
 
             Element text = par.getOwnerDocument().createElement("text");
             text.setAttribute("repeatCount", "indefinite");
-            text.setAttribute("region", "arreo_text");
+            text.setAttribute("region", "text");
             text.setAttribute("begin", "0");
             text.setAttribute("dur", "indefinite");
             text.setAttribute("src", messageCID);
@@ -305,20 +312,20 @@ public class SktSoapUtil extends SoapUtil {
 
             Element div = body.getOwnerDocument().createElement("div");
             Element text = div.getOwnerDocument().createElement("color1");
-            text.setTextContent(new String(message.getBytes(StandardCharsets.UTF_8)));
+            text.setTextContent(new String(message.getBytes(StandardCharsets.UTF_8))); // 띄워쓰끼 문제
 
             div.appendChild(text);
             body.appendChild(div);
-
-            for (String imageId : imageIds) {
-                String contentId = imageCIDList.get(imageIds.indexOf(imageId));
-
-                Element img = div.getOwnerDocument().createElement("img");
-                img.setAttribute("id", imageId);
-                img.setAttribute("src", contentId);
-
-                div.appendChild(img);
-            }
+//
+//            for (String imageId : imageIds) {
+//                String contentId = imageCIDList.get(imageIds.indexOf(imageId));
+//
+//                Element img = div.getOwnerDocument().createElement("img");
+//                img.setAttribute("id", imageId);
+//                img.setAttribute("src", contentId);
+//
+//                div.appendChild(img);
+//            }
 
             return document;
         } catch (Exception e) {

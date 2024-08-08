@@ -12,10 +12,15 @@ import java.util.List;
 import java.nio.charset.Charset;
 
 import kr.co.seoultel.message.core.dto.MessageDelivery;
+import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfSubmitReqMessage;
 import kr.co.seoultel.message.mt.mms.core.util.ValidateUtil;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.AttachedImageSizeOverException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
+import kr.co.seoultel.message.mt.mms.core_module.utils.ImageUtil;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 import kr.co.seoultel.message.mt.mms.direct.util.SoapUtil;
 import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
@@ -30,8 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class KtfSoapUtil extends SoapUtil {
 
-    public KtfSoapUtil(HttpClientProperty property) {
-        super(property);
+    public KtfSoapUtil(HttpClientProperty property, HashMapStorage<String, String> fileStorage) {
+        super(property, fileStorage);
     }
 
 
@@ -55,15 +60,15 @@ public class KtfSoapUtil extends SoapUtil {
             boolean hasMessage = !ValidateUtil.isNullOrBlankStr(message);
 
             KtfSubmitReqMessage ktfSoapMessage = KtfSubmitReqMessage.builder()
-                    .tid(KtfUtil.getRandomTransactionalId(umsMsgId))
-                    .vasId(property.getVasId())
-                    .vaspId(property.getVaspId())
-                    .cpid(property.getCpidInfo().getCpid())
-                    .callback(callback)
-                    .receiver(receiver)
-                    .subject(subject)
-                    .resellerCode(originCode)
-                    .build();
+                                                                    .tid(KtfUtil.getRandomTransactionalId(umsMsgId))
+                                                                    .vasId(property.getVasId())
+                                                                    .vaspId(property.getVaspId())
+                                                                    .cpid(property.getCpidInfo().getCpid())
+                                                                    .callback(callback)
+                                                                    .receiver(receiver)
+                                                                    .subject(subject)
+                                                                    .resellerCode(originCode)
+                                                                    .build();
 
 
             /*  Create MimeParts  */
@@ -77,15 +82,12 @@ public class KtfSoapUtil extends SoapUtil {
                 mimeMultipart.addBodyPart(textMimeBodyPart);
 
                 for (String imageId : imageIds) {
-//                String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
-//                byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
-//                int mediaFileSize = imageBytes.length;
-//                if (mediaFileSize > Constants.STANDARD_IMAGE_MAX_SIZE) {
-//                    throw new AttachedImageSizeOverException(inboundMessage);
-//                }
-
-                    // TODO : 지워야됨;
-                    byte[] imageBytes = new byte[]{1,0,0,1,0,1};
+                    String imagePath = fileStorage.get(ImageUtil.getImageKey(groupCode, imageId));
+                    byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
+                    int mediaFileSize = imageBytes.length;
+                    if (mediaFileSize > Constants.STANDARD_IMAGE_MAX_SIZE) {
+                        throw new AttachedImageSizeOverException(inboundMessage);
+                    }
 
                     // String fileName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
                     MimeBodyPart imageMimeBodyPart = KtfSoapUtil.createImageMimeMultipart(imageBytes);
@@ -114,7 +116,7 @@ public class KtfSoapUtil extends SoapUtil {
             baos.reset();
             soapMessage.writeTo(baos);
 
-            return baos.toString();
+            return baos.toString("euc-kr");
         } catch (Exception e) {
             throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
@@ -131,7 +133,8 @@ public class KtfSoapUtil extends SoapUtil {
                 sb.append(String.format("<IMG SRC=\"%s\">", imageName));
             }
 
-            sb.append(new String(message.getBytes(Charset.forName(EUC_KR))));
+            // sb.append(new String(message.getBytes(Charset.forName(EUC_KR))));
+            sb.append(new String(message.getBytes()));
             sb.append("</BODY></HTML>");
 
             String htmlTag = sb.toString();
@@ -153,18 +156,20 @@ public class KtfSoapUtil extends SoapUtil {
 
     private static MimeBodyPart createImageMimeMultipart(byte[] imageBytes) throws MCMPSoapRenderException {
         try {
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-
-            /* set header to MimeBodyPart */
-            mimeBodyPart.setHeader("Content-ID", "<arreo_jpeg.jpeg>");
-            mimeBodyPart.setHeader("Content-Type", "image/jpeg");
-            mimeBodyPart.setHeader("Content-Disposition", "attachment; filename=\"arreo_jpeg.jpeg\"");
-            mimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
+            MimeBodyPart imageMimeBodyPart = new MimeBodyPart();
 
             ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(imageBytes, "image/jpeg");
-            mimeBodyPart.setDataHandler(new DataHandler(byteArrayDataSource));
+            DataHandler dataHandler = new DataHandler(byteArrayDataSource);
 
-            return mimeBodyPart;
+            imageMimeBodyPart.setDataHandler(dataHandler);
+
+            /* set header to MimeBodyPart */
+            imageMimeBodyPart.setHeader("Content-ID", "<arreo_jpeg.jpeg>");
+            imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
+            imageMimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
+            imageMimeBodyPart.setHeader("Content-Disposition", "attachment; filename=\"arreo_jpeg.jpeg\"");
+
+            return imageMimeBodyPart;
         } catch (Exception e) {
             throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }

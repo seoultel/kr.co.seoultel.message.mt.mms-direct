@@ -11,20 +11,27 @@ import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoa
 import kr.co.seoultel.message.mt.mms.core.messages.direct.lgt.LgtSubmitReqMessage;
 import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
 import kr.co.seoultel.message.mt.mms.core.util.ValidateUtil;
+import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.AttachedImageSizeOverException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
+import kr.co.seoultel.message.mt.mms.core_module.utils.ImageUtil;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 import kr.co.seoultel.message.mt.mms.direct.util.SoapUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
+
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.EUC_KR;
 
 @Slf4j
 public class LgtSoapUtil extends SoapUtil {
 
-    public LgtSoapUtil(HttpClientProperty property) {
-        super(property);
+    public LgtSoapUtil(HttpClientProperty property, HashMapStorage<String, String> fileStorage) {
+        super(property, fileStorage);
     }
 
     @Override
@@ -58,7 +65,7 @@ public class LgtSoapUtil extends SoapUtil {
 
             /*  Create MimeParts  */
             byte[] bytes;
-            MimeMultipart mimeMultipart = new MimeMultipart("related");
+            MimeMultipart mimeMultipart = new MimeMultipart("mixed");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             SOAPMessage soapMessage = lgtSubmitReqMessage.toSOAPMessage();
@@ -69,20 +76,20 @@ public class LgtSoapUtil extends SoapUtil {
             }
 
             for (String imageId : imageIds) {
-//            String imagePath = ImageService.getImages().get(ImageUtil.getImageKey(groupCode, imageId));
-//            byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
-//            int mediaFileSize = imageBytes.length;
-//            if (mediaFileSize > Constants.STANDARD_IMAGE_MAX_SIZE) {
-//                throw new AttachedImageSizeOverException(io);
-//            }
+                String imagePath = fileStorage.get(ImageUtil.getImageKey(groupCode, imageId));
+                byte[] imageBytes = ImageUtil.getImageBytes(imagePath);
 
-                byte[] imageBytes = new byte[3];
+                int mediaFileSize = imageBytes.length;
+                if (mediaFileSize > Constants.STANDARD_IMAGE_MAX_SIZE) {
+                    throw new AttachedImageSizeOverException(inboundMessage);
+                }
 
                 MimeBodyPart imageMimeBodyPart = createImageMimeBodypart(imageId, imageBytes);
                 mimeMultipart.addBodyPart(imageMimeBodyPart);
             }
 
             mimeMultipart.writeTo(baos);
+
             bytes = baos.toString(StandardCharsets.UTF_8).getBytes("euc-kr");
 
             ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, mimeMultipart.getContentType());
@@ -91,6 +98,7 @@ public class LgtSoapUtil extends SoapUtil {
             // Attachment
             AttachmentPart attachmentPart = soapMessage.createAttachmentPart(dataHandler);
             attachmentPart.setContentId("<" + Constants.LGT_CONTENT_ID + ">");
+
             soapMessage.addAttachmentPart(attachmentPart);
             soapMessage.saveChanges();
 
@@ -98,10 +106,7 @@ public class LgtSoapUtil extends SoapUtil {
             baos.reset();
             soapMessage.writeTo(baos);
 
-            String soapMessageAsString = baos.toString("euc-kr");
-            // log.info("soapMessageAsString : {}", soapMessageAsString);
-
-            return soapMessageAsString;
+            return baos.toString("euc-kr");
         } catch (Exception e) {
             throw new MCMPSoapRenderException("[SOAP] Fail to create soap message, add report-queue to message-delivery", e);
         }
@@ -134,10 +139,16 @@ public class LgtSoapUtil extends SoapUtil {
         try {
             MimeBodyPart imageMimeBodyPart = new MimeBodyPart();
 
+            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, "image/jpeg");
+            DataHandler dataHandler = new DataHandler(byteArrayDataSource);
+
+            imageMimeBodyPart.setDataHandler(dataHandler);
+
             imageMimeBodyPart.setHeader("Content-Type", "image/jpeg");
             imageMimeBodyPart.setHeader("Content-Disposition", "attachment; filename=\"" + imageId + "\"");
             imageMimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
             imageMimeBodyPart.setHeader("X-Kmms-redistribution", "TRUE");
+            imageMimeBodyPart.setHeader("Content-Category", "Photo");
 
             /*
              * << 우선 적용 사항>>
@@ -145,11 +156,6 @@ public class LgtSoapUtil extends SoapUtil {
              *        재전송 허용 여부(연동규격서, Appendix 참조)
              */
             imageMimeBodyPart.setHeader("X-Kmms-SVCCODE", "800100000000");
-
-            ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, "image/jpeg");
-            DataHandler dataHandler = new DataHandler(byteArrayDataSource);
-
-            imageMimeBodyPart.setDataHandler(dataHandler);
 
             return imageMimeBodyPart;
         } catch (Exception e) {

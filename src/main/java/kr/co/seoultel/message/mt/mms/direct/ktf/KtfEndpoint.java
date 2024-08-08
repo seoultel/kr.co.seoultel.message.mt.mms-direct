@@ -6,6 +6,10 @@ import kr.co.seoultel.message.mt.mms.core_module.dto.endpoint.Endpoint;
 
 public class KtfEndpoint extends Endpoint {
 
+    public KtfEndpoint(String ip, int port) {
+        super(ip, port, Constants.KTF_REQUEST_URL);
+    }
+
     public KtfEndpoint(HttpClientProperty property) {
         super(property.getIp(), property.getPort(), Constants.KTF_REQUEST_URL);
     }

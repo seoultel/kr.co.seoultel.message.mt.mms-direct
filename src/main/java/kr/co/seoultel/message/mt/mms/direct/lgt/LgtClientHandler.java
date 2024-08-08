@@ -12,6 +12,7 @@ import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckType;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
@@ -46,10 +47,10 @@ public class LgtClientHandler extends HttpClientHandler {
 
     protected final LgtMMSReportUtil lgtMMSReportUtil = new LgtMMSReportUtil();
 
-    public LgtClientHandler(HttpClientProperty property, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
+    public LgtClientHandler(HttpClientProperty property, HashMapStorage<String, String> fileStorage, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
         super(property, deliveryStorage, reportQueueStorage);
 
-        this.soapUtil = new LgtSoapUtil(property);
+        this.soapUtil = new LgtSoapUtil(property, fileStorage);
         this.endpoint = new LgtEndpoint(property);
     }
 
@@ -77,23 +78,29 @@ public class LgtClientHandler extends HttpClientHandler {
             String xml = response.getBody();
             assert xml != null;
 
+            log.info("[SUBMIT-ACK's XML] Successfully received origin xml : {}", xml);
             LgtSubmitResMessage lgtSubmitResMessage = new LgtSubmitResMessage();
             lgtSubmitResMessage.fromXml(xml);
 
-            String messageId = lgtSubmitResMessage.getMessageId();
+            String dsgMsgId = lgtSubmitResMessage.getMessageId();
             String statusCode = lgtSubmitResMessage.getStatusCode();
             String statusText = lgtSubmitResMessage.getStatusText();
-            messageDelivery.setDstMsgId(messageId);
+            messageDelivery.setDstMsgId(dsgMsgId);
 
-            NAckType nAckType = LgtUtil.getNAckTypeSubmitAckStatusCode(statusCode);
+            NAckType nAckType = LgtUtil.getNAckTypeByStatusCode(statusCode);
             if (nAckType.equals(NAckType.ACK)) {
                 lgtMMSReportUtil.prepareToSubmitAck(messageDelivery, lgtSubmitResMessage);
                 MessageDelivery cloneDelivery = (MessageDelivery) messageDelivery.clone();
                 switch (statusCode) {
                     case LgtProtocol.SUCCESS:
                     case LgtProtocol.PARTIAL_SUCCESS:
-                        log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck of message[{}] from LGT", cloneDelivery);
-                        deliveryStorage.put(messageId, cloneDelivery);
+                        log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck[{}] of message[umsMsgId : {}, dstMsgId : {}] from LGT", lgtSubmitResMessage, umsMsgId, dsgMsgId);
+                        deliveryStorage.put(dsgMsgId, cloneDelivery);
+                        break;
+
+                    case LgtProtocol.ADDRESS_NOT_FOUND:
+                    case LgtProtocol.SUBS_IS_PORTED:
+                        log.info("[SUBMIT_ACK & PORT-OUT] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from LGT", lgtSubmitResMessage, umsMsgId);
                         break;
 
                     default:
@@ -103,10 +110,9 @@ public class LgtClientHandler extends HttpClientHandler {
 
                 MrReport mrReport = new MrReport(DeliveryType.SUBMIT_ACK, cloneDelivery);
                 reportQueueStorage.add(mrReport);
-                log.info("[REPORT-QUEUE] Successfully add SubmitAck[{}] in reportQueue", lgtSubmitResMessage);
+                log.info("[QUEUE] Successfully add SubmitAck[{}] in reportQueue", lgtSubmitResMessage);
 
                 inboundMessage.basicAck();
-                return;
             } else {
                 if (lgtSubmitResMessage.isTpsOver()) {
                     log.warn("[SUBMIT_ACK & TPS OVER] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from LGT", lgtSubmitResMessage, umsMsgId);
@@ -120,7 +126,6 @@ public class LgtClientHandler extends HttpClientHandler {
 
                 // send nack to rabbitmq
                 inboundMessage.basicNack();
-                return;
             }
         }
         // 4xx 번대 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
@@ -132,11 +137,13 @@ public class LgtClientHandler extends HttpClientHandler {
             }
 
             CommonUtil.doThreadSleep(1000L);
+            inboundMessage.basicNack();
         }
         // 5xx 번대 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
         catch (org.springframework.web.client.HttpServerErrorException e) {
             log.error("[SUBMIT] Fail to send MM7_submit.REQ. It's likely to be destination error, so requeue message[{}]", messageDelivery, e);
             CommonUtil.doThreadSleep(1000L);
+            inboundMessage.basicNack();
         }
         // 네트워크 관련 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
         catch (org.springframework.web.client.ResourceAccessException e) {
@@ -149,13 +156,20 @@ public class LgtClientHandler extends HttpClientHandler {
             }
 
             CommonUtil.doThreadSleep(500L);
+            inboundMessage.basicNack();
+        }
+        // SubmitAck 에 대한 메세지 생성 못한 경우;
+        catch (MCMPSoapRenderException e) {
+            String xml = e.getXml();
+            log.error("[SUBMIT-ACK] Fail to parsing xml[{}] to KtfSubmitAckResMessage, send ack to RabbitMQ", xml);
+
+            inboundMessage.basicAck();
         }
         // 처리하지 못한 예외가 발생할 경우 해당 예외 처리 블럭으로 들어온다.
         catch (Exception e) {
             log.error("[SUBMIT] Fail to send MM7_Submit.REQ, requeue message[{}]", messageDelivery, e);
+            inboundMessage.basicNack();
         }
-
-        inboundMessage.basicNack();
     }
 
     private HttpEntity<String> getSubmitHttpEntity(String soapMessageToString) {

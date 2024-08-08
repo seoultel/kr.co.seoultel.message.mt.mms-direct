@@ -33,21 +33,10 @@ public class KtfControllerAspect {
     @AfterThrowing(pointcut = "execution(* kr.co.seoultel.message.mt.mms.direct.controller.ktf.KtfController.*(..))",
             throwing = "exception")
     public void catchIOAndSoapException(Exception exception) {
-        if (exception instanceof IOException | exception instanceof SOAPException) {
+        if (exception instanceof IOException) {
             log.error("[SYSTEM] I/O or soap problem during report handling", exception);
-        }
-
-        if (exception instanceof PersistenceException) {
-            KtfDeliveryReportReqMessage ktfDeliveryReportReqMessage = (KtfDeliveryReportReqMessage) ((PersistenceException) exception).getSource();
-            String messageId = ktfDeliveryReportReqMessage.getMessageId();
-            Optional<String> optional = redisService.getSafely(RedisUtil.getRedisKeyOfMessage(), messageId);
-            if (optional.isPresent()) {
-                MessageDelivery messageDelivery = ConvertorUtil.convertJsonToObject(optional.get(), MessageDelivery.class);
-                deliveryStorage.putIfAbsent(messageId, messageDelivery);
-                log.warn("[SYSTEM] Re-add redis to deliveryStorage of message[{}]", messageDelivery);
-            } else {
-                log.error("[SYSTEM] Fail to find message[dstMsgId : {}] in redis, received request[{}]", messageId, ktfDeliveryReportReqMessage);
-            }
+        } else if (exception instanceof SOAPException) {
+            log.error("[SYSTEM] Fail to create KtfDeliveryReportReq message during report handling", exception);
         }
     }
 

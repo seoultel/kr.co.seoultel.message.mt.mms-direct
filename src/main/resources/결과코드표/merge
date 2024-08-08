@@ -1,863 +1,1492 @@
-[
-  {
+
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 1000,
+    "convertResult": 99
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2002,
+    "convertResult": 3110
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2003,
+    "convertResult": 3120
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2004,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2005,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2007,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2101,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2102,
+    "convertResult": 2102
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2103,
+    "convertResult": 3060
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2104,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4005,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4006,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4007,
+    "convertResult": 3070
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4008,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4101,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 1000,
+    "convertResult": -100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2002,
+    "convertResult": 3050
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2003,
+    "convertResult": 3120
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2004,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2005,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2007,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2101,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2102,
+    "convertResult": 2102
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2103,
+    "convertResult": 3060
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2104,
+    "convertResult": 3020
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4005,
+    "convertResult": 3050
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4006,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4007,
+    "convertResult": 3070
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4008,
+    "convertResult": 3100
+},
+{
+    "provider": "SKT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4101,
+    "convertResult": 3100
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 1000,
     "convertResult": 99
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2100,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2101,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2102,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2103,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2104,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2105,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2106,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2107,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2108,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2109,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2110,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2111,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2112,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2113,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2114,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2115,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2116,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2150,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2151,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2152,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2154,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2155,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2160,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2161,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2162,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 2163,
     "convertResult": 2010
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 3000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4001,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4100,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4101,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4102,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4103,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4104,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4105,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4201,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4202,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4203,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4400,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4401,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4402,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 4403,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 1,
     "originResult": 9999,
     "convertResult": 3110
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 1000,
     "convertResult": -100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 1001,
     "convertResult": -100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 1002,
     "convertResult": -100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2100,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2101,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2102,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2103,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2104,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2105,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2106,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2107,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2108,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2109,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2110,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2111,
     "convertResult": 2030
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2112,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2113,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2114,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2115,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2116,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2150,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2151,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2152,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2154,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2155,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2160,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2161,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2162,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2163,
     "convertResult": 2010
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 2200,
     "convertResult": 3120
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 3000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 3400,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 3505,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4000,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4001,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4100,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4101,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4102,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4103,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4104,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4200,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4201,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4202,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4203,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4300,
     "convertResult": 3050
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4301,
     "convertResult": 3050
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4302,
     "convertResult": 3050
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4303,
     "convertResult": 3050
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4304,
     "convertResult": "3080(적용됨)"
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4305,
     "convertResult": 3060
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4306,
     "convertResult": 2010
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4307,
     "convertResult": 3080
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4400,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4401,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4402,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4403,
     "convertResult": 2042
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 4404,
     "convertResult": 2040
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5200,
     "convertResult": 3110
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5300,
     "convertResult": 3110
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5310,
     "convertResult": 3070
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5320,
     "convertResult": 3070
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5330,
     "convertResult": 3070
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5401,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5403,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 5409,
     "convertResult": 2040
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 3430,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 7400,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 7505,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8200,
     "convertResult": 3110
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8300,
     "convertResult": 3110
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8310,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8320,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8330,
     "convertResult": 3020
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8401,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8403,
     "convertResult": 3100
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 8408,
     "convertResult": 2040
-  },
-  {
+},
+{
     "provider": "KTF",
     "msgType": 2,
     "resultType": 2,
     "originResult": 9999,
     "convertResult": 3110
-  }
-]
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 1000,
+    "convertResult": 99
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 1100,
+    "convertResult": 99
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2000,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2001,
+    "convertResult": 3100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2002,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2003,
+    "convertResult": 3050
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2004,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2005,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2006,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2007,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 3000,
+    "convertResult": 3100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 3001,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 3002,
+    "convertResult": 3090
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 3003,
+    "convertResult": 3090
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4000,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4001,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4002,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4003,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4004,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4005,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4006,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4007,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4030,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4032,
+    "convertResult": 3120
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6014,
+    "convertResult": 2040
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6024,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6025,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6072,
+    "convertResult": 3060
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6102,
+    "convertResult": 3050
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 7103,
+    "convertResult": 3110
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 1000,
+    "convertResult": -100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 1100,
+    "convertResult": -100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2000,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2001,
+    "convertResult": 3100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2002,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2003,
+    "convertResult": 3050
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2004,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2005,
+    "convertResult": 3090
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2006,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2007,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 3000,
+    "convertResult": 3100
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 3001,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 3002,
+    "convertResult": 3090
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 3003,
+    "convertResult": 3090
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4000,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4001,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4002,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4003,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4004,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4005,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4006,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4007,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4030,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4032,
+    "convertResult": 3120
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 6014,
+    "convertResult": 2040
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 6024,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 6025,
+    "convertResult": 3020
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 6072,
+    "convertResult": 3060
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 6102,
+    "convertResult": 3050
+},
+{
+    "provider": "LGT",
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 7103,
+    "convertResult": 3110
+}

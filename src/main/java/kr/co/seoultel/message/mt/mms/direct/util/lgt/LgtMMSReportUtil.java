@@ -16,6 +16,8 @@ import kr.co.seoultel.message.mt.mms.direct.util.skt.SktUtil;
 
 import java.util.*;
 
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.LGT;
+
 public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
     @Override
     public void prepareToSubmitAck(MessageDelivery messageDelivery, LgtSoapMessage lgtSoapMessage) {
@@ -30,11 +32,14 @@ public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
         LgtSubmitResMessage lgtSubmitResMessage = (LgtSubmitResMessage) lgtSoapMessage;
         Map<String, Object> result = Objects.requireNonNullElse(FallbackUtil.getResult(messageDelivery), new LinkedHashMap<>());
 
-        result.put(Result.MNO_CD, SenderConfig.GROUP);
+        result.put(Result.MNO_CD, LGT);
         result.put(Result.MNO_RESULT, lgtSubmitResMessage.getStatusCode());
         result.put(Result.SETTLE_CODE, SenderConfig.NAME);
         result.put(Result.MESSAGE, SktUtil.getStatusCodeKor(lgtSubmitResMessage.getStatusCode()));
         result.put(Result.PFM_SND_DTTM, DateUtil.getDate());
+
+        List<String> triedMnos = (List<String>) result.getOrDefault(Result.TRIED_MNOS, new ArrayList<>());
+        if (!triedMnos.contains(LGT)) triedMnos.add(LGT);
 
         return result;
     }
@@ -55,9 +60,8 @@ public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
         Map<String, Object> result = Objects.requireNonNullElse(FallbackUtil.getResult(messageDelivery), new LinkedHashMap<>());
         String resultMessage = isSuccess ? "Successed to Send Message" : "Failed to Send Message";
 
-
         // RESULT
-        result.put(Result.MNO_CD, SenderConfig.GROUP); // Reporter 의 리포트 처리를 위해 MNO_CD에 "LGHV" 가 들어가야만 한다.
+        result.put(Result.MNO_CD, LGT); // Reporter 의 리포트 처리를 위해 MNO_CD에 "LGT" 가 들어가야만 한다.
         result.put(Result.MNO_RESULT, lgtDeliveryReportReqMessage.getMmStatus()); // 원본코드
         result.put(Result.SETTLE_CODE, SenderConfig.NAME);
         result.put(Result.MESSAGE, resultMessage);
@@ -65,8 +69,7 @@ public class LgtMMSReportUtil extends MMSReportUtil<LgtSoapMessage> {
         result.put(Result.PFM_RCV_DTTM, DateUtil.getDate());
 
         List<String> triedMnos = (List<String>) result.getOrDefault(Result.TRIED_MNOS, new ArrayList<>());
-        triedMnos.add(Constants.LGT);
-        result.put(Result.TRIED_MNOS, triedMnos);
+        if (!triedMnos.contains(LGT)) triedMnos.add(LGT);
 
         return result;
     }

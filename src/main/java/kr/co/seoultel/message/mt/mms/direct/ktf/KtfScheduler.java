@@ -3,23 +3,33 @@ package kr.co.seoultel.message.mt.mms.direct.ktf;
 import kr.co.seoultel.message.core.dto.MessageDelivery;
 import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
-import kr.co.seoultel.message.mt.mms.core.entity.DeliveryState;
 import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.entity.MessageHistory;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfDeliveryReportReqMessage;
-import kr.co.seoultel.message.mt.mms.core.messages.direct.lgt.LgtDeliveryReportReqMessage;
-import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
-import kr.co.seoultel.message.mt.mms.core_module.modules.ExpirerService;
+import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfEchoReqMessage;
+import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfEchoResMessage;
+import kr.co.seoultel.message.mt.mms.core_module.common.config.DefaultSenderConfig;
+import kr.co.seoultel.message.mt.mms.core_module.dto.endpoint.Endpoint;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
+import kr.co.seoultel.message.mt.mms.direct.modules.HeartBeatClient;
 import kr.co.seoultel.message.mt.mms.direct.util.ktf.KtfMMSReportUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.EUC_KR;
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.SECOND;
 
 
 @Slf4j
@@ -27,10 +37,19 @@ import java.util.Collection;
 @Conditional(KtfCondition.class)
 public class KtfScheduler extends kr.co.seoultel.message.mt.mms.core_module.modules.MMSScheduler {
 
+    protected final Endpoint endpoint;
+
+    protected final RestTemplate restTemplate = new RestTemplate();
     protected final KtfMMSReportUtil ktfMMSReportUtil = new KtfMMSReportUtil();
-    public KtfScheduler(ExpirerService expirerService, QueueStorage<MrReport> reportQueueStorage, HashMapStorage<String, MessageHistory> historyStorage, HashMapStorage<String, MessageDelivery> deliveryStorage) {
-        super(expirerService, reportQueueStorage, historyStorage, deliveryStorage);
+
+
+    public KtfScheduler(@Value("${sender.http.endpoint.ip}") String ip, @Value("${sender.http.endpoint.port}") int port, HeartBeatClient heartBeatClient,
+                        MultiMediaService fileService, HashMapStorage<String, String> fileStorage, QueueStorage<MrReport> reportQueueStorage, HashMapStorage<String, MessageHistory> historyStorage, HashMapStorage<String, MessageDelivery> deliveryStorage) {
+
+        super(new KtfEndpoint(ip, port), fileService, heartBeatClient, fileStorage, reportQueueStorage, historyStorage, deliveryStorage);
+        this.endpoint = new KtfEndpoint(ip, port);
     }
+
 
     @Scheduled(fixedDelay = 30000L)
     public void processExpiredMessages() {

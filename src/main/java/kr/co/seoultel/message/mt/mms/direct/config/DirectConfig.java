@@ -6,7 +6,7 @@ import kr.co.seoultel.message.mt.mms.core.common.interfaces.Checkable;
 import kr.co.seoultel.message.mt.mms.core_module.distributor.RoundRobinDistributor;
 import kr.co.seoultel.message.mt.mms.core_module.distributor.WeightNode;
 import kr.co.seoultel.message.mt.mms.core_module.distributor.WeightedRoundRobinDistributor;
-import kr.co.seoultel.message.mt.mms.core_module.modules.ExpirerService;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
@@ -51,14 +51,15 @@ public class DirectConfig implements Checkable {
 
     private List<CpidInfo> cpids;
 
-    private final ExpirerService expirerService;
+    private MultiMediaService multiMediaService;
+
 
 
 
     @Override
     @PostConstruct
     public void check() {
-        log.info("DirectConfig : {}", this);
+        log.info("[DIRECT-CONFIG] {}", this);
     }
 
 
@@ -74,7 +75,7 @@ public class DirectConfig implements Checkable {
      * 우선 각 클라이언트 객체마다 클라이언트 핸들러를 가지고 있는 구조로 작성하였음.
      */
     @Bean
-    public List<HttpClient> httpClients(HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
+    public List<HttpClient> httpClients(MultiMediaService multiMediaService, HashMapStorage<String, String> fileStorage, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
         return cpids.stream().map(
                 (cpidInfo) -> HttpClientProperty.builder()
                                                 .cpidInfo(cpidInfo)
@@ -88,17 +89,17 @@ public class DirectConfig implements Checkable {
             HttpClientHandler handler;
             switch (SenderConfig.TELECOM.toUpperCase()) {
                 case Constants.SKT:
-                    handler = new SktClientHandler(property, deliveryStorage, reportQueueStorage);
-                    return new HttpClient(property.getCpidInfo().getTps(), handler, expirerService);
+                    handler = new SktClientHandler(property, fileStorage, deliveryStorage, reportQueueStorage);
+                    return new HttpClient(property.getCpidInfo().getTps(), handler, multiMediaService);
 
                 case Constants.KTF:
-                    handler = new KtfClientHandler(property, deliveryStorage, reportQueueStorage);
-                    return new HttpClient(property.getCpidInfo().getTps(), handler, expirerService);
+                    handler = new KtfClientHandler(property, fileStorage, deliveryStorage, reportQueueStorage);
+                    return new HttpClient(property.getCpidInfo().getTps(), handler, multiMediaService);
 
                 case Constants.LGT:
                 default:
-                    handler = new LgtClientHandler(property, deliveryStorage, reportQueueStorage);
-                    return new HttpClient(property.getCpidInfo().getTps(), handler, expirerService);
+                    handler = new LgtClientHandler(property, fileStorage, deliveryStorage, reportQueueStorage);
+                    return new HttpClient(property.getCpidInfo().getTps(), handler, multiMediaService);
             }
         }).collect(Collectors.toList());
     }

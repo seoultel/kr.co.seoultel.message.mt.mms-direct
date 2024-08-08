@@ -17,6 +17,8 @@ import kr.co.seoultel.message.mt.mms.direct.config.SenderConfig;
 
 import java.util.*;
 
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.LGT;
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.SKT;
 import static kr.co.seoultel.message.mt.mms.core.common.protocol.LghvProtocol.DELIVERY_ACK_RESULT_E_OK;
 import static kr.co.seoultel.message.mt.mms.core.common.protocol.LghvProtocol.REPORT_RESULT_E_SENT;
 
@@ -34,11 +36,14 @@ public class SktMMSReportUtil extends MMSReportUtil<SktSoapMessage> {
         SktSubmitResMessage sktSubmitResMessage = (SktSubmitResMessage) sktSoapMessage;
         Map<String, Object> result = Objects.requireNonNullElse(FallbackUtil.getResult(messageDelivery), new LinkedHashMap<>());
 
-        result.put(Result.MNO_CD, SenderConfig.GROUP);
+        result.put(Result.MNO_CD, SKT);
         result.put(Result.MNO_RESULT, sktSubmitResMessage.getStatusCode());
         result.put(Result.SETTLE_CODE, SenderConfig.NAME);
         result.put(Result.MESSAGE, SktUtil.getStatusCodeKor(sktSubmitResMessage.getStatusCode()));
         result.put(Result.PFM_SND_DTTM, DateUtil.getDate());
+
+        List<String> triedMnos = (List<String>) result.getOrDefault(Result.TRIED_MNOS, new ArrayList<>());
+        if (!triedMnos.contains(SKT)) triedMnos.add(SKT);
 
         return result;
     }
@@ -60,7 +65,7 @@ public class SktMMSReportUtil extends MMSReportUtil<SktSoapMessage> {
         String resultMessage = isSuccess ? "Successed to Send Message" : "Failed to Send Message";
 
         // RESULT
-        result.put(Result.MNO_CD, SenderConfig.GROUP); // Reporter 의 리포트 처리를 위해 MNO_CD에 "LGHV" 가 들어가야만 한다.
+        result.put(Result.MNO_CD, SKT); // Reporter 의 리포트 처리를 위해 MNO_CD에 "LGHV" 가 들어가야만 한다.
         result.put(Result.MNO_RESULT, sktDeliveryReportReqMessage.getStatusCode()); // 원본코드
         result.put(Result.SETTLE_CODE, SenderConfig.NAME);
         result.put(Result.MESSAGE, resultMessage);
@@ -68,8 +73,7 @@ public class SktMMSReportUtil extends MMSReportUtil<SktSoapMessage> {
         result.put(Result.PFM_RCV_DTTM, DateUtil.getDate());
 
         List<String> triedMnos = (List<String>) result.getOrDefault(Result.TRIED_MNOS, new ArrayList<>());
-        triedMnos.add(Constants.SKT);
-        result.put(Result.TRIED_MNOS, triedMnos);
+        if (!triedMnos.contains(SKT)) triedMnos.add(SKT);
 
         return result;
     }

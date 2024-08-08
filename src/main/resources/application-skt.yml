@@ -27,7 +27,7 @@ spring:
 file-server:
   token: HermesSteps
   image-request-uri: https://dev-storage.std-ums.com:19200/v1/storage/download
-  image-download-path: /Users/simjeonghun/mms-images
+  image-download-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/images
 
 heart-beat:
   host: localhost

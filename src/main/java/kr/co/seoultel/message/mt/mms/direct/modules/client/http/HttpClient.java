@@ -9,8 +9,7 @@ import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.fileServer.Fi
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
 
-import kr.co.seoultel.message.mt.mms.core_module.modules.ExpirerService;
-import kr.co.seoultel.message.mt.mms.core_module.modules.image.ImageService;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.utils.MMSReportUtil;
 import lombok.Getter;
@@ -25,12 +24,14 @@ public class HttpClient {
 
     protected final int tps;
     protected final HttpClientHandler handler;
-    protected final ExpirerService expirerService;
 
-    public HttpClient(int tps, HttpClientHandler handler, ExpirerService expirerService) {
+    protected final MultiMediaService fileService;
+
+    public HttpClient(int tps, HttpClientHandler handler, MultiMediaService fileService) {
         this.tps = tps;
         this.handler = handler;
-        this.expirerService = expirerService;
+
+        this.fileService = fileService;
     }
 
     public void doSubmit(InboundMessage inboundMessage) throws FileServerException, TpsOverExeption, NAckException, MCMPSoapRenderException {
@@ -41,18 +42,19 @@ public class HttpClient {
 
             if (!imageIds.isEmpty()) {
                 // 메세지가 이미지를 4개 이상 가지고 있는지 확인
-                ImageService.checkAttachedImageCount(inboundMessage, imageIds);
-                // 다운로드 되지 않은 이미지
-                Set<String> undownloadedImageIdSet = ImageService.getUndowndloadedImageIdSet(groupCode, imageIds);
+                fileService.checkAttachedImageCount(inboundMessage, imageIds);
 
                 /*
                  * 만료된 이미지가 있다면 ImageExpiredException 예외 발생
                  * 레디스와의 커넥션 문제로 만료 여부를 판별 할 수 없다면
                  * ImageUtil.saveImagesByImageId(umsMsgId, groupCode, undownloadedImageIdSet); 에서 파일 서버에 요청할 때 이미지 만료 여부를 알 수 있음.
                  */
-                expirerService.hasExpiredImages(inboundMessage, groupCode, undownloadedImageIdSet);
+                fileService.hasExpiredImages(inboundMessage, groupCode, imageIds);
+
+                // 다운로드 되지 않은 이미지
+                Set<String> undownloadedImageIdSet = fileService.getUndownloadImageIdSet(groupCode, imageIds);
                 if (!undownloadedImageIdSet.isEmpty()) {
-                    ImageService.saveImagesByImageId(inboundMessage, undownloadedImageIdSet);
+                    fileService.saveImagesByImageId(inboundMessage, undownloadedImageIdSet);
                 }
             }
 
@@ -66,7 +68,7 @@ public class HttpClient {
 
             MrReport mrReport = new MrReport(deliveryType, messageDelivery);
             handler.addReportQueue(mrReport);
-            log.info("[REPORT-QUEUE] Successfully add SubmitAck[{}] in reportQueue", messageDelivery);
+            log.info("[[SOAP] Fail to create soap message, add report-queue to message-delivery] Successfully add SubmitAck[{}] in reportQueue", messageDelivery);
 
             inboundMessage.basicAck();
         }

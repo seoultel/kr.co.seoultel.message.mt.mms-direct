@@ -11,86 +11,147 @@ public class KtfUtil {
         return String.join(":", DateUtil.getDate(), SenderConfig.TELECOM.toUpperCase(), umsMsgId);
     }
 
-
-    public static NAckType getNAckTypeBySubmitAckStatusCode(String statusCode) {
+    public static NAckType getNAckTypeByStatusCode(String statusCode) {
         switch (statusCode) {
-            // 정상건
-            case KtfProtocol.KTF_SUBMIT_ACK_SUCCESS_RESULT:
+            case KtfProtocol.KTF_SUBMIT_ACK_SUCCESS_RESULT:                            //  성공 // "1000"
+            case KtfProtocol.KTF_SUBMIT_ACK_CLIENT_ERROR_RESULT:                       //  클라이언트 오류 // "2000"
+            case KtfProtocol.KTF_SUBMIT_ACK_MESSAGE_FORMAT_ERROR_RESULT:               //  메시지 포맷 오류 // "2100"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_ERROR_RESULT:                         //  SOAP Part 오류 // "2101"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_PARSING_ERROR_RESULT:                 //  SOAP 포맷 오류 // "2102"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_NOTSUPPORTED_METHOD_RESULT:           //  SOAP에서 미지원 method(MessageType) 오류 // "2103"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VERSION_ERROR_RESULT:                 //  SOAP Element 중 Version 정보 오류 // "2104"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGECLASS_ERROR_RESULT:            //  SOAP Element 중 Message Class 정보 오류 // "2105"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDINFO_ERROR_RESULT:                //  SOAP Element인 SenderInfo 정보 오류 // "2106"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_RCPTINFO_ERROR_RESULT:                //  SOAP Element인 Recipients 정보 오류 // "2107"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_HUBID_ERROR_RESULT:                   //  SOAP Element인 VASPID(HUBSP) 정보 오류 // "2108"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VASID_ERROR_RESULT:                   //  SOAP Element인 VASID(SUBCP) 정보 오류 // "2109"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_CALLBACK_ERROR_RESULT:                //  SOAP Element인 CallbackAddress 정보 오류 // "2110"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDER_ERROR_RESULT:                  //  SOAP Element인 Sender 정보 오류 // "2111"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TIMESTAMP_ERROR_RESULT:               //  SOAP Element인 StampTime 정보 오류 // "2112"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SUBJECT_ERROR_RESULT:                 //  SOAP Element인 Subject 정보 오류 // "2113"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TRANSACTIONID_ERROR_RESULT:           //  SOAP Element 중 Transaction ID 정보 오류 // "2114"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGEID_ERRO_RESULT:                //  SOAP Element 중 Message ID 정보 오류 // "2115"
+            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SERVICETYPE_ERROR_RESULT:             //  SOAP Element 중 MessageType 정보 오류 // "2116"
+            case KtfProtocol.KTF_SUBMIT_ACK_MIME_ERROR_RESULT:                         //  Mime 메시지 포맷 오류 // "2150"
+            case KtfProtocol.KTF_SUBMIT_ACK_BOUNDARY_ERROR_RESULT:                     //  Bounday 오류 // "2151"
+            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTTYPE_ERROR_RESULT:                  //  Content-Type 오류 // "2152"
+            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_EMPTY_RESULT:                      //  Content 오류 // "2154"
+            case KtfProtocol.KTF_SUBMIT_ACK_ENCODING_ERROR_RESULT:                     //  Content Encoding 오류 // "2155"
+            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_NOTSUPPORTED_RESULT:               //  지원하지 않는 Content 오류 // "2160"
+            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_CONVERSION_NOTSUPPORTED_RESULT:    //  변환을 지원하지 않는 Content 오류 수신단말이 지원할 수 없는  Content 포함이 된 경우 발생 // "2161"
+            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTID_ERROR_RESULT:                    //  Content ID 오류 // "2162"
+            case KtfProtocol.KTF_SUBMIT_ACK_TRANID_DUPLICATE_ERROR_RESULT:             //  TRANSACTION ID가 중복 // "2163"
+            case KtfProtocol.KTF_SUBMIT_ACK_RCPTCNT_OVER_RESULT:                       //  동보 전송 건수 초과 오류 // "4201"
                 return NAckType.ACK;
 
-            // TID 중복 인입건
-            case KtfProtocol.KTF_SUBMIT_ACK_TRANID_DUPLICATE_ERROR_RESULT:
-                return NAckType.ACK;
+            // 서버 오류
+            case KtfProtocol.KTF_SUBMIT_ACK_SERVER_ERROR_RESULT:                       //  서버 오류 // "3000"
+            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_ERROR_RESULT:                      //  서비스 오류 // "4000"
+            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_DENIED_RESULT:                     //  서비스 거부 // "4001"
 
-            // 메세지 포맷 에러
-            case KtfProtocol.KTF_SUBMIT_ACK_CLIENT_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_MESSAGE_FORMAT_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_PARSING_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_NOTSUPPORTED_METHOD_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VERSION_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGECLASS_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDINFO_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_RCPTINFO_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_HUBID_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VASID_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_CALLBACK_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDER_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TIMESTAMP_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SUBJECT_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TRANSACTIONID_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGEID_ERRO_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SERVICETYPE_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_MIME_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_BOUNDARY_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTTYPE_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_EMPTY_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_ENCODING_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_NOTSUPPORTED_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_CONVERSION_NOTSUPPORTED_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTID_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_MESSAGE_RESULT:
+            // HUBSP 오류
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_AUTH_ERROR_RESULT:                     //  HUBSP 인증 오류 // "4100"
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_NOTFOUND_RESULT:                       //  HUBSP 없음 오류 // "4101"
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_BLOCK_RESULT:                          //  HUBSP 정지 오류 // "4102"
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_EXPIRED_RESULT:                        //  HUBSP 폐기 오류 // "4103"
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_IP_INVALID_RESULT:                     //  HUBSP IP 오류 // "4104"
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_CALLBACK_INVALID_RESULT:               //  HUBSP 회신번호 오류 (안심메시지) // "4105"
+
+            // TPS 초과
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_INTRAFFIC_RESULT:                 //  허용 트래픽 초과 오류 // "4202"
                 return NAckType.NACK;
 
-            // 서버 오류로 인한 재처리
-            case KtfProtocol.KTF_SUBMIT_ACK_SERVER_ERROR_RESULT:
-                return NAckType.NACK;
-
-            // 서비스 오류로 인한 재처리
-            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_DENIED_RESULT:
-                return NAckType.NACK;
-
-            // HUBSP 인증관련 오류로 인한 재처리
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_AUTH_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_NOTFOUND_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_BLOCK_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_EXPIRED_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_IP_INVALID_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_CALLBACK_INVALID_RESULT:
-                return NAckType.NACK;
-
-            // 동보 전송 건수 초과로 인한 재처리
-            case KtfProtocol.KTF_SUBMIT_ACK_RCPTCNT_OVER_RESULT:
-                return NAckType.NACK;
-
-            // 전송가능 TPS 초과로 인한 재처리
-            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_INTRAFFIC_RESULT:
-                return NAckType.NACK;
-
-            // 스팸으로 인한 실패
-            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_ERROR_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBJECT_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_FILENAME_RESULT:
-            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBCP_RESULT:
-                return NAckType.ACK;
-
-            // 실패 원인을 알 수 없어 실패 처리
-            case KtfProtocol.KTF_SUBMIT_ACK_UNDEFINED_RESULT:
+            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_MESSAGE_RESULT:                   //  SIZE 허용 메시지 SIZE 초과 오류 // "4203"
+            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_ERROR_RESULT:                         //  스팸 처리 오류 // "4400"
+            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBJECT_RESULT:                       //  제목 스팸 처리 오류 // "4401"
+            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_FILENAME_RESULT:                      //  파일명 스팸 처리 오류 // "4402"
+            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBCP_RESULT:                         //  SUB CP 스팸 처리 오류 // "4403"
+            case KtfProtocol.KTF_SUBMIT_ACK_UNDEFINED_RESULT:                          //  알 수 없는 에러 // "9999"
             default:
                 return NAckType.ACK;
         }
     }
+//
+//
+//    public static NAckType getNAckTypeBySubmitAckStatusCode(String statusCode) {
+//        switch (statusCode) {
+//            // 정상건
+//            case KtfProtocol.KTF_SUBMIT_ACK_SUCCESS_RESULT:
+//                return NAckType.ACK;
+//
+//            // TID 중복 인입건
+//            case KtfProtocol.KTF_SUBMIT_ACK_TRANID_DUPLICATE_ERROR_RESULT:
+//                return NAckType.ACK;
+//
+//            // 메세지 포맷 에러
+//            case KtfProtocol.KTF_SUBMIT_ACK_CLIENT_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_MESSAGE_FORMAT_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_PARSING_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_NOTSUPPORTED_METHOD_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VERSION_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGECLASS_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDINFO_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_RCPTINFO_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_HUBID_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_VASID_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_CALLBACK_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SENDER_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TIMESTAMP_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SUBJECT_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_TRANSACTIONID_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_MESSAGEID_ERRO_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SOAP_SERVICETYPE_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_MIME_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_BOUNDARY_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTTYPE_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_EMPTY_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_ENCODING_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_NOTSUPPORTED_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_CONTENT_CONVERSION_NOTSUPPORTED_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_CONTENTID_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_MESSAGE_RESULT:
+//                return NAckType.ACK;
+//
+//            // 서버 오류로 인한 재처리
+//            case KtfProtocol.KTF_SUBMIT_ACK_SERVER_ERROR_RESULT:
+//                return NAckType.NACK;
+//
+//            // 서비스 오류로 인한 재처리
+//            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SERVICE_DENIED_RESULT:
+//                return NAckType.NACK;
+//
+//            // HUBSP 인증관련 오류로 인한 재처리
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_AUTH_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_NOTFOUND_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_BLOCK_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_EXPIRED_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_IP_INVALID_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_CALLBACK_INVALID_RESULT:
+//                return NAckType.NACK;
+//
+//            // 동보 전송 건수 초과
+//            case KtfProtocol.KTF_SUBMIT_ACK_RCPTCNT_OVER_RESULT:
+//                return NAckType.ACK;
+//
+//            // 전송가능 TPS 초과로 인한 재처리
+//            case KtfProtocol.KTF_SUBMIT_ACK_HUB_OVER_INTRAFFIC_RESULT:
+//                return NAckType.NACK;
+//
+//            // 스팸으로 인한 실패
+//            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_ERROR_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBJECT_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_FILENAME_RESULT:
+//            case KtfProtocol.KTF_SUBMIT_ACK_SPAM_SUBCP_RESULT:
+//                return NAckType.ACK;
+//
+//            // 실패 원인을 알 수 없어 실패 처리
+//            case KtfProtocol.KTF_SUBMIT_ACK_UNDEFINED_RESULT:
+//            default:
+//                return NAckType.ACK;
+//        }
+//    }
 
     public static String getSubmitAckStatusCodeKor(String statusCode) {
         switch (statusCode) {

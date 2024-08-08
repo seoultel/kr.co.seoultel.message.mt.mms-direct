@@ -5,10 +5,11 @@ import kr.co.seoultel.message.mt.mms.core.common.constant.Constants;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.common.protocol.KtfProtocol;
-import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfResMessage;
+import kr.co.seoultel.message.mt.mms.core.messages.direct.ktf.KtfSubmitResMessage;
 import kr.co.seoultel.message.mt.mms.core.util.*;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckException;
 import kr.co.seoultel.message.mt.mms.core_module.common.exceptions.rabbitMq.NAckType;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
@@ -45,10 +46,10 @@ public class KtfClientHandler extends HttpClientHandler {
     protected final KtfMMSReportUtil ktfMMSReportUtil = new KtfMMSReportUtil();
 
 
-    public KtfClientHandler(HttpClientProperty property, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
+    public KtfClientHandler(HttpClientProperty property, HashMapStorage<String, String> fileStorage, HashMapStorage<String, MessageDelivery> deliveryStorage, QueueStorage<MrReport> reportQueueStorage) {
         super(property, deliveryStorage, reportQueueStorage);
 
-        this.soapUtil = new KtfSoapUtil(property);
+        this.soapUtil = new KtfSoapUtil(property, fileStorage);
         this.endpoint = new KtfEndpoint(property);
     }
 
@@ -76,51 +77,48 @@ public class KtfClientHandler extends HttpClientHandler {
             String xml = response.getBody();
             assert xml != null;
 
-            String localPart = KtfSoapUtil.getSOAPMessageMM7LocalPart(xml);
+            log.info("[SUBMIT-ACK's XML] Successfully received origin xml : {}", xml);
+            KtfSubmitResMessage ktfSubmitResMessage = new KtfSubmitResMessage();
+            ktfSubmitResMessage.fromXml(xml);
 
-            KtfResMessage ktfResMessage = new KtfResMessage(localPart);
-            ktfResMessage.fromXml(xml);
+            String statusCode = ktfSubmitResMessage.getStatusCode();
+            String dstMsgId = ktfSubmitResMessage.getMessageId();
+            messageDelivery.setDstMsgId(dstMsgId);
 
-            String messageId = ktfResMessage.getMessageId();
-            String statusCode = ktfResMessage.getStatusCode();
-            String statusText = ktfResMessage.getStatusText();
-            messageDelivery.setDstMsgId(messageId);
-
-            NAckType nAckType = KtfUtil.getNAckTypeBySubmitAckStatusCode(statusCode);
+            NAckType nAckType = KtfUtil.getNAckTypeByStatusCode(statusCode);
             if (nAckType.equals(NAckType.ACK)) {
-                ktfMMSReportUtil.prepareToSubmitAck(messageDelivery, ktfResMessage);
+                ktfMMSReportUtil.prepareToSubmitAck(messageDelivery, ktfSubmitResMessage);
+
                 MessageDelivery cloneDelivery = (MessageDelivery) messageDelivery.clone();
                 switch (statusCode) {
                     case KtfProtocol.KTF_SUBMIT_ACK_SUCCESS_RESULT:
-                        log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck of message[{}] from KTF", cloneDelivery);
-                        deliveryStorage.put(messageId, cloneDelivery);
+                        log.info("[SUBMIT_ACK | SUCCESS] Successfully received SubmitAck[{}] of message[umsMsgId : {}, dstMsgId : {}] from KTF", ktfSubmitResMessage, umsMsgId, dstMsgId);
+                        deliveryStorage.put(ktfSubmitResMessage.getMessageId(), cloneDelivery);
                         break;
 
                     default:
-                        log.info("[SUBMIT_ACK & FAIL] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfResMessage, umsMsgId);
+                        log.info("[SUBMIT_ACK & FAIL] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfSubmitResMessage, umsMsgId);
                         break;
                 }
 
                 MrReport mrReport = new MrReport(DeliveryType.SUBMIT_ACK, cloneDelivery);
                 reportQueueStorage.add(mrReport);
-                log.info("[REPORT-QUEUE] Successfully add SubmitAck[{}] in reportQueue", ktfResMessage);
+                log.info("[QUEUE] Successfully add SubmitAck[{}] in reportQueue", ktfSubmitResMessage);
 
                 inboundMessage.basicAck();
-                return;
             } else {
-                if (ktfResMessage.isTpsOver()) {
-                    log.warn("[SUBMIT_ACK & TPS OVER] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfResMessage, umsMsgId);
+                if (ktfSubmitResMessage.isTpsOver()) {
+                    log.warn("[SUBMIT_ACK & TPS OVER] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfSubmitResMessage, umsMsgId);
                     CommonUtil.doThreadSleep(DateUtil.getTimeGapUntilNextSecond());
-                } else if (ktfResMessage.isHubspError()) {
-                    log.error("[SUBMIT_ACK & HUBSP] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfResMessage, umsMsgId);
+                } else if (ktfSubmitResMessage.isHubspError()) {
+                    log.error("[SUBMIT_ACK & HUBSP] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfSubmitResMessage, umsMsgId);
                     CommonUtil.doThreadSleep(Constants.SECOND);
                 } else {
-                    log.warn("[SUBMIT_ACK | FAIL] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfResMessage, umsMsgId);
+                    log.error("[SUBMIT_ACK | FAIL] Successfully received SubmitAck[{}] of message[umsMsgId : {}] from KTF", ktfSubmitResMessage, umsMsgId);
                 }
 
                 // send nack to rabbitmq
                 inboundMessage.basicNack();
-                return;
             }
         }
         // 4xx 번대 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
@@ -132,11 +130,13 @@ public class KtfClientHandler extends HttpClientHandler {
             }
 
             CommonUtil.doThreadSleep(1000L);
+            inboundMessage.basicNack();
         }
         // 5xx 번대 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
         catch (org.springframework.web.client.HttpServerErrorException e) {
             log.error("[SUBMIT] Fail to send MM7_submit.REQ. It's likely to be destination error, so requeue message[{}]", messageDelivery, e);
             CommonUtil.doThreadSleep(1000L);
+            inboundMessage.basicNack();
         }
         // 네트워크 관련 예외 발생 시 해당 예외 처리 블럭으로 들어온다.
         catch (org.springframework.web.client.ResourceAccessException e) {
@@ -149,13 +149,21 @@ public class KtfClientHandler extends HttpClientHandler {
             }
 
             CommonUtil.doThreadSleep(500L);
+            inboundMessage.basicNack();
+        }
+        // SubmitAck 에 대한 메세지 생성 못한 경우;
+        catch (MCMPSoapRenderException e) {
+            String xml = e.getXml();
+            log.error("[SUBMIT-ACK] Fail to parsing xml[{}] to KtfSubmitAckResMessage, send ack to RabbitMQ", xml);
+
+            inboundMessage.basicAck();
+            return;
         }
         // 처리하지 못한 예외가 발생할 경우 해당 예외 처리 블럭으로 들어온다.
         catch (Exception e) {
             log.error("[SUBMIT] Fail to send MM7_Submit.REQ, requeue message[{}]", messageDelivery, e);
+            inboundMessage.basicNack();
         }
-
-        inboundMessage.basicNack();
     }
 
 

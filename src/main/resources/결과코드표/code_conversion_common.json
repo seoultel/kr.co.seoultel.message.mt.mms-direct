@@ -1,0 +1,179 @@
+[
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62021",
+    "convertResult": "1021",
+    "resultMessage": "UMS_MSG_ID_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62021",
+    "convertResult": "1021",
+    "resultMessage": "UMS_MSG_ID_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62022",
+    "convertResult": "1022",
+    "resultMessage": "PHN_NBR_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62022",
+    "convertResult": "1022",
+    "resultMessage": "PHN_NBR_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62023",
+    "convertResult": "1022",
+    "resultMessage": "ORIGIN_CODE_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62023",
+    "convertResult": "1022",
+    "resultMessage": "ORIGIN_CODE_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62024",
+    "convertResult": "1022",
+    "resultMessage": "MESSAGE_IMAGE_IS_EMPTY"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62024",
+    "convertResult": "1022",
+    "resultMessage": "MESSAGE_IMAGE_IS_EMPTY"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62027",
+    "convertResult": "3090",
+    "resultMessage": "EXPIRED_MSG"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62027",
+    "convertResult": "3090",
+    "resultMessage": "EXPIRED_MSG"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62030",
+    "convertResult": "1022",
+    "resultMessage": "SOAP_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62030",
+    "convertResult": "1022",
+    "resultMessage": "SOAP_FORMAT_ERROR"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62041",
+    "convertResult": "1022",
+    "resultMessage": "IMAGE_CNT_OVER"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62041",
+    "convertResult": "1022",
+    "resultMessage": "IMAGE_CNT_OVER"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62042",
+    "convertResult": "1022",
+    "resultMessage": "IMAGE_IS_EXPIRED"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62042",
+    "convertResult": "1022",
+    "resultMessage": "IMAGE_IS_EXPIRED"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62043",
+    "convertResult": "1022",
+    "resultMessage": "NOT_ADDED_CLIENTS_IMAGE"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62043",
+    "convertResult": "1022",
+    "resultMessage": "NOT_ADDED_CLIENTS_IMAGE"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62044",
+    "convertResult": "1022",
+    "resultMessage": "IMG_SIZE_OVER"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "2",
+    "originResult": "62044",
+    "convertResult": "1022",
+    "resultMessage": "IMG_SIZE_OVER"
+  },
+  {
+    "provider": "SYSTEM",
+    "msgType": "2",
+    "resultType": "1",
+    "originResult": "62049",
+    "convertResult": "1022",
+    "resultMessage": "MMS_SND_UNKNOWN_FILE_ERR"
+  },
+  {
+    "provider" : "SYSTEM",
+    "msgType": "2",
+    "resultType":"2",
+    "originResult":"62049",
+    "convertResult":"1022",
+    "resultMessage":"MMS_SND_UNKNOWN_FILE_ERR"
+  }
+]
+

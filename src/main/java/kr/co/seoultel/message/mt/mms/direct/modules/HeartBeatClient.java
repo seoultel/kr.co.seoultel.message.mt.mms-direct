@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.SECOND;
 
 @Slf4j
-@Component
 public class HeartBeatClient extends kr.co.seoultel.message.mt.mms.core_module.modules.heartBeat.client.DefaultHeartBeatClient {
 
     public HeartBeatClient(RabbitMqProperty rabbitMqProperty) {

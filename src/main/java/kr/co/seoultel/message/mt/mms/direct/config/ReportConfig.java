@@ -2,6 +2,7 @@ package kr.co.seoultel.message.mt.mms.direct.config;
 
 import kr.co.seoultel.message.mt.mms.core_module.modules.consumer.AbstractConsumer;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReportService;
+import kr.co.seoultel.message.mt.mms.direct.modules.MessageConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,7 @@ public class ReportConfig extends kr.co.seoultel.message.mt.mms.core_module.comm
     }
 
     @Bean
-    public MrReportService mrReportService(AbstractConsumer consumer, RabbitMQConfig rabbitMQConfig) {
+    public MrReportService mrReportService(MessageConsumer consumer, RabbitMQConfig rabbitMQConfig) {
         return new MrReportService(consumer, rabbitMQConfig);
     }
 

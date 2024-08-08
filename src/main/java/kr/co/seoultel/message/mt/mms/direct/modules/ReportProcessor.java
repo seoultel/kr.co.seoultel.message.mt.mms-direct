@@ -36,13 +36,14 @@ public class ReportProcessor extends MrReportProcessor {
 
                 try {
                     reportService.sendReport(report);
-                    log.info("[SYSTEM] Successfully send report of message[dstMsgId : {} & reportType : {} & state : {}]",
+                    log.info("[REPORT] Successfully send report of message[dstMsgId : {} & reportType : {} & state : {}]",
                             dstMsgId, report.getType(), DeliveryType.getDeliveryTypeEng(report.getType()));
 
-                    if (report.getType().equals(DeliveryType.REPORT)) {
+                    if (report.getType().equals(DeliveryType.REPORT) && (dstMsgId != null)) {
                         deliveryStorage.remove(dstMsgId);
                     }
                 } catch (MsgReportException e) {
+                    log.error("EXCEPTION : messageDelivery : {}", messageDelivery);
                     if (e.getOriginException() instanceof java.net.ConnectException) {
                         break;
                     }
@@ -50,6 +51,7 @@ public class ReportProcessor extends MrReportProcessor {
                     log.error("[SYSTEM] Failed to send report of message[dstMsgId : {} & reportType : {} & state : {}], cause[{}]",
                             dstMsgId, report.getType(), DeliveryType.getDeliveryTypeEng(report.getType()), e.getMessage(), e);
                 } catch (Exception e) {
+                    log.error("EXCEPTION : messageDelivery : {}", messageDelivery);
                     log.error("[SYSTEM] Failed to send report of message[dstMsgId : {} & reportType : {} & state : {}], cause[{}]",
                             dstMsgId, report.getType(), DeliveryType.getDeliveryTypeEng(report.getType()), e.getMessage(), e);
                 }

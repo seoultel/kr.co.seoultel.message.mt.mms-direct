@@ -7,20 +7,23 @@ import kr.co.seoultel.message.mt.mms.core.entity.DeliveryState;
 import kr.co.seoultel.message.mt.mms.core.entity.DeliveryType;
 import kr.co.seoultel.message.mt.mms.core.entity.MessageHistory;
 import kr.co.seoultel.message.mt.mms.core.messages.direct.lgt.LgtDeliveryReportReqMessage;
-import kr.co.seoultel.message.mt.mms.core.messages.direct.skt.SktDeliveryReportReqMessage;
-import kr.co.seoultel.message.mt.mms.core.util.FallbackUtil;
-import kr.co.seoultel.message.mt.mms.core_module.modules.ExpirerService;
+import kr.co.seoultel.message.mt.mms.core_module.common.config.DefaultSenderConfig;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
 import kr.co.seoultel.message.mt.mms.core_module.modules.report.MrReport;
 import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.core_module.storage.QueueStorage;
-import kr.co.seoultel.message.mt.mms.direct.ktf.KtfCondition;
+import kr.co.seoultel.message.mt.mms.direct.modules.HeartBeatClient;
 import kr.co.seoultel.message.mt.mms.direct.util.lgt.LgtMMSReportUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+
+import static kr.co.seoultel.message.mt.mms.core.common.constant.Constants.SECOND;
 
 
 @Slf4j
@@ -29,8 +32,9 @@ import java.util.Collection;
 public class LgtScheduler extends kr.co.seoultel.message.mt.mms.core_module.modules.MMSScheduler {
 
     protected final LgtMMSReportUtil lgtMMSReportUtil = new LgtMMSReportUtil();
-    public LgtScheduler(ExpirerService expirerService, QueueStorage<MrReport> reportQueueStorage, HashMapStorage<String, MessageHistory> historyStorage, HashMapStorage<String, MessageDelivery> deliveryStorage) {
-        super(expirerService, reportQueueStorage, historyStorage, deliveryStorage);
+    public LgtScheduler(@Value("${sender.http.endpoint.ip}") String ip, @Value("${sender.http.endpoint.port}") int port, HeartBeatClient heartBeatClient,
+                        MultiMediaService fileService, HashMapStorage<String, String> fileStorage, QueueStorage<MrReport> reportQueueStorage, HashMapStorage<String, MessageHistory> historyStorage, HashMapStorage<String, MessageDelivery> deliveryStorage) {
+        super(new LgtEndpoint(ip, port), fileService, heartBeatClient, fileStorage, reportQueueStorage, historyStorage, deliveryStorage);
     }
 
     @Scheduled(fixedDelay = 30000L)
@@ -69,5 +73,4 @@ public class LgtScheduler extends kr.co.seoultel.message.mt.mms.core_module.modu
             }
         });
     }
-
 }

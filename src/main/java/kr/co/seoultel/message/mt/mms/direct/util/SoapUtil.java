@@ -3,6 +3,8 @@ package kr.co.seoultel.message.mt.mms.direct.util;
 import jakarta.xml.soap.*;
 import kr.co.seoultel.message.mt.mms.core.common.exceptions.message.soap.MCMPSoapRenderException;
 import kr.co.seoultel.message.mt.mms.core_module.dto.InboundMessage;
+import kr.co.seoultel.message.mt.mms.core_module.modules.multimedia.MultiMediaService;
+import kr.co.seoultel.message.mt.mms.core_module.storage.HashMapStorage;
 import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProperty;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,8 +13,11 @@ import java.io.ByteArrayInputStream;
 public abstract class SoapUtil {
 
     protected final HttpClientProperty property;
-    public SoapUtil(HttpClientProperty property) {
+    protected final HashMapStorage<String, String> fileStorage;
+
+    public SoapUtil(HttpClientProperty property, HashMapStorage<String, String> fileStorage) {
         this.property = property;
+        this.fileStorage = fileStorage;
     }
 
     protected static MessageFactory messageFactory;

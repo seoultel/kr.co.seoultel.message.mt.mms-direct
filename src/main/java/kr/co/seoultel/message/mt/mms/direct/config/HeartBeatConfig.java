@@ -1,7 +1,10 @@
 package kr.co.seoultel.message.mt.mms.direct.config;
 
+import kr.co.seoultel.message.mt.mms.core_module.common.property.RabbitMqProperty;
+import kr.co.seoultel.message.mt.mms.direct.modules.HeartBeatClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /* HEART-BEAT 관련 상수 */
@@ -29,4 +32,8 @@ public class HeartBeatConfig extends kr.co.seoultel.message.mt.mms.core_module.c
         EXPIRE_TIME = expireTime;
     }
 
+    @Bean
+    public HeartBeatClient heartBeatClient(RabbitMqProperty rabbitMqProperty) {
+        return new HeartBeatClient(rabbitMqProperty);
+    }
 }

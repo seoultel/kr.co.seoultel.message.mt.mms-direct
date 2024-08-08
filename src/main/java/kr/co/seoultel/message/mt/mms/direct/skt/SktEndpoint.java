@@ -5,6 +5,11 @@ import kr.co.seoultel.message.mt.mms.direct.modules.client.http.HttpClientProper
 import kr.co.seoultel.message.mt.mms.core_module.dto.endpoint.Endpoint;
 
 public class SktEndpoint extends Endpoint {
+
+    public SktEndpoint(String ip, int port) {
+        super(ip, port, Constants.SKT_REQUEST_URL);
+    }
+
     public SktEndpoint(HttpClientProperty property) {
         super(property.getIp(), property.getPort(), Constants.SKT_REQUEST_URL);
     }

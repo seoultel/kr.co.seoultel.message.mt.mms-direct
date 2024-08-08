@@ -65,16 +65,16 @@ sender:
 
   storage:
     persistence:
-      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/persistence.dvt
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/persistence.storage
 
     history:
-      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/messageHistory.dvt
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/messageHistory.storage
 
     republish:
-      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/republish.dvt
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/republish.storage
 
     report:
-      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/report.dvt
+      file-path: /Users/simjeonghun/github/seoultel/kr.co.seoultel.message.mt.mms-direct/src/main/resources/storage/lgt/report.storage
 
 
   data-vault:

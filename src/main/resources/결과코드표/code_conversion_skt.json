@@ -1,242 +1,212 @@
 [
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "1000",
-    "convertResult": "99",
-    "resultMessage" : "Success"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 1000,
+    "convertResult": 99
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2002",
-    "convertResult": "3110",
-    "resultMessage" : "Address Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2002,
+    "convertResult": 3110
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2003",
-    "convertResult": "3120",
-    "resultMessage" : "Orig Address Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2003,
+    "convertResult": 3120
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2004",
-    "convertResult": "3020",
-    "resultMessage" : "Multimedia Content refused"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2004,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2005",
-    "convertResult": "3020",
-    "resultMessage" : "Message ID Not Found"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2005,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2007",
-    "convertResult": "3020",
-    "resultMessage" : "Message Format Corrupt"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2007,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2101",
-    "convertResult": "3020",
-    "resultMessage" : "Content Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2101,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2102",
-    "convertResult": "3070",
-    "resultMessage" : "Client Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2102,
+    "convertResult": 2102
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2103",
-    "convertResult": "3060",
-    "resultMessage" : "Client Unavailable"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2103,
+    "convertResult": 3060
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "2104",
-    "convertResult": "3020",
-    "resultMessage" : "Content Size Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 2104,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "4005",
-    "convertResult": "3050",
-    "resultMessage" : "Service Error"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4005,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "4006",
-    "convertResult": "3100",
-    "resultMessage" : "Service Unavailable"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4006,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "4007",
-    "convertResult": "3070",
-    "resultMessage" : "Service Denied"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4007,
+    "convertResult": 3070
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "4008",
-    "convertResult": "3100",
-    "resultMessage" : "Exceed Max Trans"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4008,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "1",
-    "originResult": "4101",
-    "convertResult": "3100",
-    "resultMessage" : "Service Check"
+    "msgType": 2,
+    "resultType": 1,
+    "originResult": 4101,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "1000",
-    "convertResult": "-100",
-    "resultMessage" : "Success"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 1000,
+    "convertResult": -100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2002",
-    "convertResult": "3110",
-    "resultMessage" : "Address Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2002,
+    "convertResult": 3050
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2003",
-    "convertResult": "3120",
-    "resultMessage" : "Orig Address Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2003,
+    "convertResult": 3120
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2004",
-    "convertResult": "3020",
-    "resultMessage" : "Multimedia Content refused"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2004,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2005",
-    "convertResult": "3020",
-    "resultMessage" : "Message ID Not Found"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2005,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2007",
-    "convertResult": "3020",
-    "resultMessage" : "Message Format Corrupt"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2007,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2101",
-    "convertResult": "3020",
-    "resultMessage" : "Content Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2101,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2102",
-    "convertResult": "3070",
-    "resultMessage" : "Client Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2102,
+    "convertResult": 2102
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2103",
-    "convertResult": "3060",
-    "resultMessage" : "Client Unavailable"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2103,
+    "convertResult": 3060
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "2104",
-    "convertResult": "3020",
-    "resultMessage" : "Content Size Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 2104,
+    "convertResult": 3020
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "4005",
-    "convertResult": "3050",
-    "resultMessage" : "Service Error"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4005,
+    "convertResult": 3050
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "4006",
-    "convertResult": "3100",
-    "resultMessage" : "Service Unavailable"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4006,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "4007",
-    "convertResult": "3070",
-    "resultMessage" : "Service Denied"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4007,
+    "convertResult": 3070
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "4008",
-    "convertResult": "3100",
-    "resultMessage" : "Exceed Max Trans"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4008,
+    "convertResult": 3100
   },
   {
     "provider": "SKT",
-    "msgType": "2",
-    "resultType": "2",
-    "originResult": "4101",
-    "convertResult": "3100",
-    "resultMessage" : "Service Check"
+    "msgType": 2,
+    "resultType": 2,
+    "originResult": 4101,
+    "convertResult": 3100
   }
 ]
